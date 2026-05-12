@@ -31,10 +31,13 @@ export default function Home() {
                             </div>
 
                             <div className="flex flex-col gap-3 sm:flex-row">
-                                <PrimaryButton className="inline-flex w-full items-center justify-center gap-2 bg-neutral-950 text-amber-100 hover:bg-neutral-800 sm:w-auto">
+                                <Link
+                                    href="/land-opportunities"
+                                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-700 px-5 py-3 text-sm font-semibold hover:bg-teal-800 !text-white sm:w-auto"
+                                >
                                     View Featured Opportunities
                                     <ArrowRight size={18} />
-                                </PrimaryButton>
+                                </Link>
 
                                 <Link
                                     href="/advisory"
