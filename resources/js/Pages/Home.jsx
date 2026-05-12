@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { ArrowRight, CheckCircle2, MessageCircle } from 'lucide-react';
+import { ArrowRight, CheckCircle2, MessageCircle, Map, Radar, ShieldCheck } from 'lucide-react';
 
 import FrontLayout from '../Layouts/FrontLayout';
 import PrimaryButton from '../Components/PrimaryButton';
@@ -137,9 +137,13 @@ export default function Home() {
 
                         <div className="space-y-6">
                             <div className="border-b border-amber-700/10 pb-5">
-                                <p className="text-sm font-semibold text-stone-950">
-                                    Selective opportunity review
-                                </p>
+                                <div className="flex items-center gap-2">
+                                    <ShieldCheck size={16} className="text-amber-700" />
+
+                                    <p className="text-sm font-semibold text-stone-950">
+                                        Selective opportunity review
+                                    </p>
+                                </div>
 
                                 <p className="mt-2 text-sm leading-7 text-stone-600">
                                     Opportunities are filtered based on positioning, surrounding movement, and pricing context.
@@ -147,9 +151,13 @@ export default function Home() {
                             </div>
 
                             <div className="border-b border-amber-700/10 pb-5">
-                                <p className="text-sm font-semibold text-stone-950">
-                                    Area growth monitoring
-                                </p>
+                                <div className="flex items-center gap-2">
+                                    <Radar size={16} className="text-amber-700" />
+
+                                    <p className="text-sm font-semibold text-stone-950">
+                                        Area growth monitoring
+                                    </p>
+                                </div>
 
                                 <p className="mt-2 text-sm leading-7 text-stone-600">
                                     We monitor expansion zones, infrastructure signals, and strategic district activity across Sharjah.
@@ -157,9 +165,13 @@ export default function Home() {
                             </div>
 
                             <div>
-                                <p className="text-sm font-semibold text-stone-950">
-                                    Ownership and positioning clarity
-                                </p>
+                                <div className="flex items-center gap-2">
+                                    <Map size={16} className="text-amber-700" />
+
+                                    <p className="text-sm font-semibold text-stone-950">
+                                        Ownership and positioning clarity
+                                    </p>
+                                </div>
 
                                 <p className="mt-2 text-sm leading-7 text-stone-600">
                                     Land opportunities are presented with clear ownership eligibility and investment positioning.
