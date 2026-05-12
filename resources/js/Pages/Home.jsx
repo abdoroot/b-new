@@ -1,12 +1,10 @@
 import { Link } from '@inertiajs/react';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
-import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
+import { ArrowRight, CheckCircle2, MessageCircle } from 'lucide-react';
 
 import FrontLayout from '../Layouts/FrontLayout';
 import PrimaryButton from '../Components/PrimaryButton';
 import SectionHeader from '../Components/SectionHeader';
 import OpportunityCard from '../Components/LandOpportunity/OpportunityCard';
-import LeadCaptureBlock from '../Components/Lead/LeadCaptureBlock';
 import { opportunityList } from '../data/mockData';
 
 const trustItems = [
@@ -15,44 +13,32 @@ const trustItems = [
     'Investor advisory',
 ];
 
-const processSteps = [
-    'Market movement tracking across Sharjah land clusters',
-    'Comparable transaction screening and pricing gap checks',
-    'Selective curation of land opportunities with clear upside triggers',
-];
-
-const reasons = [
-    'Land-only focus with advisory-led selection',
-    'Curated opportunities before mainstream demand catches up',
-    'Clear investment context, not listing noise',
-];
-
 export default function Home() {
     return (
         <FrontLayout>
             <main className="">
                 <section className="relative overflow-hidden bg-[#f5f1e8]">
-                    <div className="container-shell grid gap-10 py-16 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:py-24">
-                        <div className="space-y-7">
-                            <div className="space-y-5">
-                                <h1 className="max-w-3xl text-4xl font-semibold leading-[1.05] tracking-tight text-stone-950 sm:text-5xl lg:text-[54px]">
+                    <div className="container-shell grid gap-8 py-12 sm:py-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-10 lg:py-24">
+                        <div className="space-y-6 sm:space-y-7">
+                            <div className="space-y-4 sm:space-y-5">
+                                <h1 className="max-w-3xl text-[34px] font-semibold leading-[1.08] tracking-tight text-stone-950 sm:text-5xl lg:text-[54px]">
                                     We identify undervalued land opportunities in Sharjah before the market moves.
                                 </h1>
 
-                                <p className="max-w-2xl text-base leading-8 text-stone-600 sm:text-lg">
+                                <p className="max-w-2xl text-base leading-7 text-stone-600 sm:text-lg sm:leading-8">
                                     Curated Sharjah land opportunities for serious buyers, investors, and developers.
                                 </p>
                             </div>
 
                             <div className="flex flex-col gap-3 sm:flex-row">
-                                <PrimaryButton className="inline-flex items-center justify-center gap-2 bg-neutral-950 text-amber-100 hover:bg-neutral-800">
+                                <PrimaryButton className="inline-flex w-full items-center justify-center gap-2 bg-neutral-950 text-amber-100 hover:bg-neutral-800 sm:w-auto">
                                     View Featured Opportunities
                                     <ArrowRight size={18} />
                                 </PrimaryButton>
 
                                 <Link
                                     href="/advisory"
-                                    className="inline-flex items-center justify-center rounded-xl border border-amber-700/25 bg-white/70 px-5 py-3 text-sm font-semibold text-stone-900 transition hover:border-amber-700/40 hover:bg-white"
+                                    className="inline-flex w-full items-center justify-center rounded-xl border border-amber-700/25 bg-white/70 px-5 py-3 text-sm font-semibold text-stone-900 transition hover:border-amber-700/40 hover:bg-white sm:w-auto"
                                 >
                                     Explore Land Advisory
                                 </Link>
@@ -65,7 +51,7 @@ export default function Home() {
                                 <img
                                     src="/assets/images/hero-land.jpg"
                                     alt="Sharjah land opportunities"
-                                    className="h-[340px] w-full rounded-[1.5rem] object-cover sm:h-[410px]"
+                                    className="h-[250px] w-full rounded-[1.5rem] object-cover sm:h-[360px] lg:h-[410px]"
                                 />
                             </div>
                         </div>
@@ -74,11 +60,11 @@ export default function Home() {
 
                 <section className="relative -mt-6 z-10">
                     <div className="container-shell">
-                        <div className="grid gap-2 rounded-3xl border border-amber-700/10 bg-white p-4 shadow-[0_10px_40px_rgba(0,0,0,0.06)] sm:grid-cols-3 sm:p-5">
+                        <div className="grid gap-2 rounded-3xl border border-amber-700/10 bg-white p-3 shadow-[0_10px_40px_rgba(0,0,0,0.06)] sm:grid-cols-3 sm:p-5">
                             {trustItems.map((item, index) => (
                                 <div
                                     key={item}
-                                    className={`flex items-center gap-3 px-4 py-3 ${index !== trustItems.length - 1
+                                    className={`flex items-center gap-3 px-3 py-3 sm:px-4 ${index !== trustItems.length - 1
                                         ? 'sm:border-r sm:border-stone-100'
                                         : ''
                                         }`}
@@ -96,23 +82,23 @@ export default function Home() {
                     </div>
                 </section>
 
-                <section className="container-shell py-16 sm:py-20">
+                <section className="container-shell py-12 sm:py-14">
                     <SectionHeader
                         eyebrow="Curated Sharjah land opportunities"
                         title="Current shortlisted land opportunities"
                         description="Selected opportunities framed around location, pricing, and investment context."
                     />
 
-                    <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="mt-6 grid gap-6 sm:mt-8 sm:grid-cols-2 lg:grid-cols-3">
                         {opportunityList.slice(0, 6).map((opportunity) => (
                             <OpportunityCard key={opportunity.slug} opportunity={opportunity} />
                         ))}
                     </div>
 
-                    <div className="mt-12 flex justify-center">
+                    <div className="mt-10 flex justify-center sm:mt-12">
                         <Link
                             href="/land-opportunities"
-                            className="inline-flex items-center gap-2 rounded-lg border border-amber-700/20 bg-white px-7 py-3 text-sm font-semibold text-stone-900 transition hover:border-amber-700/40 hover:bg-amber-50"
+                            className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-amber-700/20 bg-white px-7 py-3 text-sm font-semibold text-stone-900 transition hover:border-amber-700/40 hover:bg-amber-50 sm:w-auto"
                         >
                             Explore All Land Opportunities
                             <ArrowRight size={16} />
@@ -120,8 +106,8 @@ export default function Home() {
                     </div>
                 </section>
 
-                <section className="container-shell pb-16 sm:pb-20">
-                    <div className="grid gap-10 rounded-[2rem] border border-amber-700/10 bg-white p-8 sm:p-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:p-14">
+                <section className="container-shell pb-12 sm:pb-14">
+                    <div className="grid gap-8 rounded-[2rem] border border-amber-700/10 bg-white p-6 sm:gap-10 sm:p-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:p-14">
                         <div>
                             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
                                 Land Advisory
@@ -131,14 +117,14 @@ export default function Home() {
                                 We do not list everything.
                             </h2>
 
-                            <p className="mt-6 max-w-2xl text-base leading-8 text-stone-600">
+                            <p className="mt-5 max-w-2xl text-base leading-7 text-stone-600 sm:mt-6 sm:leading-8">
                                 Our approach focuses on identifying land opportunities supported by pricing context, area movement, infrastructure direction, and long-term positioning.
                             </p>
 
-                            <div className="mt-8">
+                            <div className="mt-7 sm:mt-8">
                                 <Link
                                     href="/advisory"
-                                    className="inline-flex items-center gap-2 rounded-lg border border-amber-700/20 bg-white px-6 py-3 text-sm font-semibold text-stone-900 transition hover:border-amber-700/40 hover:bg-amber-50"
+                                    className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-amber-700/20 bg-white px-6 py-3 text-sm font-semibold text-stone-900 transition hover:border-amber-700/40 hover:bg-amber-50 sm:w-auto"
                                 >
                                     Explore Land Advisory
                                     <ArrowRight size={16} />
@@ -179,9 +165,9 @@ export default function Home() {
                         </div>
                     </div>
                 </section>
-                <section className="container-shell py-16 sm:py-20">
+                <section className="container-shell py-10 sm:py-12">
                     <div className="overflow-hidden rounded-[2rem] border border-amber-500/10 bg-[#1f1d1a]">
-                        <div className="grid gap-10 p-8 sm:p-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:p-14">
+                        <div className="grid gap-8 p-6 sm:gap-10 sm:p-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:p-14">
                             <div>
                                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-200">
                                     Curated Access
@@ -191,7 +177,7 @@ export default function Home() {
                                     Get access to curated Sharjah land opportunities.
                                 </h2>
 
-                                <p className="mt-6 max-w-2xl text-base leading-8 text-stone-400">
+                                <p className="mt-5 max-w-2xl text-base leading-7 text-stone-400 sm:mt-6 sm:leading-8">
                                     Speak with our advisory team to explore current land opportunities, ownership eligibility, and strategic positioning across Sharjah.
                                 </p>
                             </div>
@@ -199,12 +185,12 @@ export default function Home() {
                             <div className="flex flex-col gap-4 sm:flex-row lg:justify-end">
                                 <Link
                                     href="/contact"
-                                    className="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white px-5 py-3 text-sm font-semibold text-stone-900 transition hover:bg-stone-100"
+                                    className="inline-flex w-full items-center justify-center rounded-xl border border-white/10 bg-white px-5 py-3 text-sm font-semibold text-stone-900 transition hover:bg-stone-100 sm:w-auto"
                                 >
                                     Request Opportunities
                                 </Link>
 
-                                <PrimaryButton className="inline-flex items-center justify-center gap-2 border border-amber-400/20 bg-amber-500 text-neutral-950 hover:bg-amber-400">
+                                <PrimaryButton className="inline-flex w-full items-center justify-center gap-2 border border-amber-400/20 bg-amber-500 text-neutral-950 hover:bg-amber-400 sm:w-auto">
                                     <MessageCircle size={18} />
                                     WhatsApp Consultation
                                 </PrimaryButton>
