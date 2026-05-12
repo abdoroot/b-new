@@ -1,5 +1,6 @@
 import { Link, usePage } from '@inertiajs/react';
-import { Menu, MessageCircle } from 'lucide-react';
+import { Menu, MessageCircle, X } from 'lucide-react';
+import { useState } from 'react';
 import PrimaryButton from './PrimaryButton';
 
 const links = [
@@ -11,11 +12,12 @@ const links = [
 
 export default function Header() {
     const { url } = usePage();
+    const [menuOpen, setMenuOpen] = useState(false);
 
     return (
         <header className="sticky top-0 z-50 border-b border-amber-500/10 bg-neutral-950/90 backdrop-blur-xl">
             <div className="container-shell flex h-24 items-center justify-between gap-6">
-                <Link href="/" className="flex shrink-0 items-center gap-4">
+                <Link href="/" className="flex shrink-0 items-center gap-4" onClick={() => setMenuOpen(false)}>
                     <img
                         src="/assets/images/logo.webp"
                         alt="Barakah Real Estate"
@@ -58,10 +60,40 @@ export default function Header() {
                     </PrimaryButton>
                 </div>
 
-                <button className="flex h-11 w-11 items-center justify-center rounded-xl border border-amber-500/15 bg-neutral-900 text-stone-200 transition hover:border-amber-400/30 hover:text-amber-200 lg:hidden">
-                    <Menu size={20} />
+                <button
+                    type="button"
+                    aria-label="Toggle menu"
+                    aria-expanded={menuOpen}
+                    onClick={() => setMenuOpen((v) => !v)}
+                    className="flex h-11 w-11 items-center justify-center rounded-xl border border-amber-500/15 bg-neutral-900 text-stone-200 transition hover:border-amber-400/30 hover:text-amber-200 lg:hidden"
+                >
+                    {menuOpen ? <X size={20} /> : <Menu size={20} />}
                 </button>
             </div>
+
+            {menuOpen ? (
+                <div className="border-t border-amber-500/10 bg-neutral-950/95 lg:hidden">
+                    <nav className="container-shell flex flex-col py-3">
+                        {links.map((link) => {
+                            const active = url === link.href;
+
+                            return (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    onClick={() => setMenuOpen(false)}
+                                    className={`rounded-lg px-3 py-3 text-sm transition ${active
+                                            ? 'text-amber-200'
+                                            : 'text-stone-300 hover:bg-neutral-900 hover:text-stone-100'
+                                        }`}
+                                >
+                                    {link.label}
+                                </Link>
+                            );
+                        })}
+                    </nav>
+                </div>
+            ) : null}
         </header>
     );
 }
