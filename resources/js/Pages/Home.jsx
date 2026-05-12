@@ -33,7 +33,7 @@ export default function Home() {
                             <div className="flex flex-col gap-3 sm:flex-row">
                                 <Link
                                     href="/land-opportunities"
-                                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-700 px-5 py-3 text-sm font-semibold hover:bg-teal-800 !text-white sm:w-auto"
+                                    className="inline-flex w-full items-center justify-center gap-2.5 rounded-xl bg-[#0f766e] px-5 py-[13px] text-sm font-semibold text-white transition hover:bg-[#115e59] sm:w-auto"
                                 >
                                     View Featured Opportunities
                                     <ArrowRight size={18} />
@@ -41,7 +41,7 @@ export default function Home() {
 
                                 <Link
                                     href="/advisory"
-                                    className="inline-flex w-full items-center justify-center rounded-xl border border-amber-700/25 bg-white/70 px-5 py-3 text-sm font-semibold text-stone-900 transition hover:border-amber-700/40 hover:bg-white sm:w-auto"
+                                    className="inline-flex w-full items-center justify-center rounded-xl border border-amber-700/25 bg-white/70 px-5 py-[13px] text-sm font-semibold text-stone-900 transition hover:border-amber-700/40 hover:bg-white sm:w-auto"
                                 >
                                     Explore Land Advisory
                                 </Link>
