@@ -1,4 +1,6 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
+import { Menu, MessageCircle } from 'lucide-react';
+import PrimaryButton from './PrimaryButton';
 
 const links = [
     { label: 'Home', href: '/' },
@@ -8,20 +10,57 @@ const links = [
 ];
 
 export default function Header() {
+    const { url } = usePage();
+
     return (
-        <header className="border-b border-stone-200 bg-white/95 backdrop-blur">
-            <div className="container-shell flex h-16 items-center justify-between gap-4">
-                <Link href="/" className="flex items-center gap-3">
-                    <img src="/assets/images/logo.webp" alt="Barakah" className="h-10 w-10 rounded-full object-cover" />
-                    <span className="text-xs font-semibold tracking-[0.14em] text-stone-900 uppercase sm:text-sm">Sharjah Land Advisory</span>
+        <header className="sticky top-0 z-50 border-b border-amber-500/10 bg-neutral-950/90 backdrop-blur-xl">
+            <div className="container-shell flex h-24 items-center justify-between gap-6">
+                <Link href="/" className="flex shrink-0 items-center gap-4">
+                    <img
+                        src="/assets/images/logo.webp"
+                        alt="Barakah Real Estate"
+                        className="h-20 w-20 object-contain sm:h-20 sm:w-20"
+                    />
+
+                    <div className="hidden sm:block">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-200">
+                            Sharjah Land Advisory
+                        </p>
+                        <p className="mt-1 text-sm font-medium text-stone-100">
+                            Barakah Real Estate
+                        </p>
+                    </div>
                 </Link>
-                <nav className="flex items-center gap-4 overflow-x-auto text-sm text-stone-600 sm:gap-6">
-                    {links.map((link) => (
-                        <Link key={link.href} href={link.href} className="whitespace-nowrap hover:text-stone-900">
-                            {link.label}
-                        </Link>
-                    ))}
+
+                <nav className="hidden items-center gap-7 lg:flex">
+                    {links.map((link) => {
+                        const active = url === link.href;
+
+                        return (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                className={`relative py-2 text-sm transition ${active
+                                        ? 'text-amber-200'
+                                        : 'text-stone-400 hover:text-stone-100'
+                                    }`}
+                            >
+                                {link.label}
+                            </Link>
+                        );
+                    })}
                 </nav>
+
+                <div className="hidden lg:flex">
+                    <PrimaryButton className="inline-flex items-center gap-2 border border-amber-400/30 bg-amber-500/10 text-amber-200 hover:bg-amber-500 hover:text-neutral-950">
+                        <MessageCircle size={18} />
+                        WhatsApp Consultation
+                    </PrimaryButton>
+                </div>
+
+                <button className="flex h-11 w-11 items-center justify-center rounded-xl border border-amber-500/15 bg-neutral-900 text-stone-200 transition hover:border-amber-400/30 hover:text-amber-200 lg:hidden">
+                    <Menu size={20} />
+                </button>
             </div>
         </header>
     );
