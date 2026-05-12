@@ -52,7 +52,7 @@ export default function Header() {
                 </nav>
 
                 <div className="hidden lg:flex">
-                    <PrimaryButton className="inline-flex items-center gap-2 border border-amber-400/30 bg-amber-500/10 text-amber-200 hover:bg-amber-500 hover:text-neutral-950">
+                    <PrimaryButton className="inline-flex w-full items-center justify-center gap-2 bg-amber-500 text-neutral-950 hover:bg-amber-400 sm:w-auto border border-amber-400/30 bg-amber-500/10">
                         <MessageCircle size={18} />
                         WhatsApp Consultation
                     </PrimaryButton>

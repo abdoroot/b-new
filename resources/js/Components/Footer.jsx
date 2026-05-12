@@ -100,7 +100,7 @@ export default function Footer() {
                             </div>
                         </div>
 
-                        <PrimaryButton className="inline-flex w-full items-center justify-center gap-2 bg-amber-500 text-neutral-950 hover:bg-amber-400 sm:w-auto">
+                        <PrimaryButton className="inline-flex w-full items-center justify-center gap-2 bg-amber-500 text-neutral-950 hover:bg-amber-400 sm:w-auto border border-amber-400/30 bg-amber-500/10">
                             <MessageCircle size={18} />
                             WhatsApp Consultation
                         </PrimaryButton>
