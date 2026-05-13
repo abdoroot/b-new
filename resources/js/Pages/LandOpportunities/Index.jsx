@@ -1,5 +1,4 @@
 import FrontLayout from '../../Layouts/FrontLayout';
-import SectionHeader from '../../Components/SectionHeader';
 import OpportunityCard from '../../Components/LandOpportunity/OpportunityCard';
 import PrimaryButton from '../../Components/PrimaryButton';
 import { opportunityList } from '../../data/mockData';
@@ -11,15 +10,21 @@ export default function LandOpportunitiesIndex() {
     return (
         <FrontLayout>
             <main className="bg-stone-50">
-                <section className="container-shell py-12 sm:py-16">
-                    <div className="space-y-8">
-                        <SectionHeader
-                            eyebrow="Land opportunities"
-                            title="Curated Sharjah land opportunities"
-                            description="Investment-focused shortlists filtered by area, price range, ownership eligibility, and land use."
-                        />
+                <section className="bg-[#f5f1e8]">
+                    <div className="container-shell py-12 sm:py-16">
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
+                            Land Opportunities
+                        </p>
 
-                        <div className="rounded-3xl border border-stone-200 bg-white p-4 shadow-sm sm:p-5">
+                        <h1 className="mt-4 max-w-4xl text-4xl font-semibold leading-tight tracking-tight text-stone-950 sm:text-5xl">
+                            Curated Sharjah land opportunities.
+                        </h1>
+
+                        <p className="mt-5 max-w-2xl text-base leading-8 text-stone-600">
+                            Investment-focused shortlists filtered by area, price range, ownership eligibility, and land use.
+                        </p>
+
+                        <div className="mt-8 rounded-3xl border border-stone-200 bg-white p-4 shadow-sm sm:p-5">
                             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                                 <select className={filterClass} defaultValue="">
                                     <option value="" disabled>
@@ -61,6 +66,10 @@ export default function LandOpportunitiesIndex() {
                                 </select>
                             </div>
                         </div>
+                    </div>
+                </section>
+                <section className="container-shell py-12 sm:py-16">
+                    <div className="space-y-8">
 
                         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                             {opportunityList.map((opportunity) => (

@@ -121,8 +121,28 @@ export default function LandOpportunitiesShow({ slug }) {
                             </div>
                         </div>
 
-                        <div className="space-y-5">
-                            <LeadCaptureBlock />
+                        <div className="rounded-[2rem] border border-amber-700/10 bg-white p-6 shadow-sm sm:p-8">
+                            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
+                                Interested in this opportunity?
+                            </p>
+
+                            <h2 className="mt-4 text-2xl font-semibold leading-tight text-stone-950">
+                                Request the full details from our advisory team.
+                            </h2>
+
+                            <p className="mt-4 text-sm leading-7 text-stone-600">
+                                Share your budget and purpose, and we will help you assess this land opportunity or suggest suitable alternatives.
+                            </p>
+
+                            <div className="mt-7">
+                                <Link
+                                    href="/contact"
+                                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-neutral-950 px-5 py-3 text-sm font-semibold text-amber-100 transition hover:bg-neutral-800"
+                                >
+                                    Request details
+                                    <ArrowRight size={16} />
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </section>
