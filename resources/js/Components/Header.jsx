@@ -20,7 +20,7 @@ export default function Header() {
                 <Link href="/" className="flex shrink-0 items-center gap-4" onClick={() => setMenuOpen(false)}>
                     <img
                         src="/assets/images/logo.webp"
-                        alt="Barakah Real Estate"
+                        alt="Al Barakah Real Estate"
                         className="h-20 w-20 object-contain sm:h-20 sm:w-20"
                     />
 
@@ -29,7 +29,7 @@ export default function Header() {
                             Sharjah Land Advisory
                         </p>
                         <p className="mt-1 text-sm font-medium text-stone-100">
-                            Barakah Real Estate
+                            Al Barakah Real Estate
                         </p>
                     </div>
                 </Link>

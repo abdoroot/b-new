@@ -74,7 +74,7 @@ export default function ContactIndex() {
                             </h2>
 
                             <p className="mt-4 text-sm leading-7 text-stone-600">
-                                You can contact Barakah Real Estate directly to discuss current land opportunities and ownership eligibility.
+                                You can contact Al Barakah Real Estate directly to discuss current land opportunities and ownership eligibility.
                             </p>
 
                             <div className="mt-8 space-y-4 text-sm text-stone-700">

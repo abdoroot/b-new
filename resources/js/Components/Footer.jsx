@@ -30,7 +30,7 @@ export default function Footer() {
                             <div className="flex items-center gap-4">
                                 <img
                                     src="/assets/images/30-albarahah.jpg"
-                                    alt="Barakah Real Estate"
+                                    alt="Al Barakah Real Estate"
                                     className="h-20 w-20 rounded-sm object-contain sm:h-24 sm:w-24"
                                 />
                                 <div>
@@ -38,7 +38,7 @@ export default function Footer() {
                                         Sharjah Land Advisory
                                     </p>
                                     <p className="mt-1 text-lg font-semibold text-stone-100">
-                                        Barakah Real Estate
+                                        Al Barakah Real Estate
                                     </p>
                                 </div>
                             </div>
@@ -111,7 +111,7 @@ export default function Footer() {
 
                 <div className="mt-10 border-t border-amber-500/15 pt-6">
                     <p className="text-sm text-stone-500">
-                        © 2026 Barakah Real Estate. All rights reserved.
+                        © 2026 Al Barakah Real Estate. All rights reserved.
                     </p>
                 </div>
             </div>
