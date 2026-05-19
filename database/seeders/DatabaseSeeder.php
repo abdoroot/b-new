@@ -18,6 +18,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // 0. Users
+        $this->call([
+            UserSeeder::class,
+        ]);
+
         // 1. Land Uses
         $landUses = [
             'Commercial',
