@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { ArrowRight, CheckCircle2, MessageCircle, Map, Radar, ShieldCheck } from 'lucide-react';
 
 import FrontLayout from '../Layouts/FrontLayout';
@@ -13,6 +13,9 @@ const trustItems = [
 ];
 
 export default function Home({ featuredOpportunities = [] }) {
+    const { siteSettings = {} } = usePage().props;
+    const whatsappUrl = siteSettings.contact_whatsapp_url || "https://wa.me/971XXXXXXXXX";
+
     return (
         <FrontLayout>
             <main className="">
@@ -204,10 +207,15 @@ export default function Home({ featuredOpportunities = [] }) {
                                     Request Opportunities
                                 </Link>
 
-                                <PrimaryButton className="inline-flex w-full items-center justify-center gap-2 border border-amber-400/20 bg-amber-500 text-neutral-950 hover:bg-amber-400 sm:w-auto">
+                                <a 
+                                    href={whatsappUrl}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-amber-400/20 bg-amber-500 text-sm font-semibold text-neutral-950 transition hover:bg-amber-400 sm:w-auto"
+                                >
                                     <MessageCircle size={18} />
                                     WhatsApp Consultation
-                                </PrimaryButton>
+                                </a>
                             </div>
                         </div>
                     </div>

@@ -6,7 +6,7 @@ import PrimaryButton from '../../Components/PrimaryButton';
 const inputClass =
     'w-full rounded-xl border border-stone-200 bg-white px-4 py-3 text-sm text-stone-800 outline-none transition placeholder:text-stone-400 focus:border-amber-700/40 focus:ring-2 focus:ring-amber-700/10';
 
-export default function ContactIndex({ leadPurposes = [], priceRanges = [] }) {
+export default function ContactIndex({ leadPurposes = [], priceRanges = [], areas = [] }) {
     const { siteSettings = {} } = usePage().props;
 
     const { data, setData, post, processing, reset, errors, wasSuccessful } = useForm({
@@ -15,7 +15,7 @@ export default function ContactIndex({ leadPurposes = [], priceRanges = [] }) {
         email: '',
         budget_range_id: '',
         lead_purpose_id: '',
-        preferred_area: '',
+        preferred_area_id: '',
         message: '',
     });
 
@@ -106,13 +106,17 @@ export default function ContactIndex({ leadPurposes = [], priceRanges = [] }) {
                                     </div>
 
                                     <div className="sm:col-span-2">
-                                        <input 
+                                        <select 
                                             className={inputClass} 
-                                            placeholder="Preferred area" 
-                                            value={data.preferred_area}
-                                            onChange={e => setData('preferred_area', e.target.value)}
-                                        />
-                                        {errors.preferred_area && <p className="mt-1 text-xs text-red-600">{errors.preferred_area}</p>}
+                                            value={data.preferred_area_id}
+                                            onChange={e => setData('preferred_area_id', e.target.value)}
+                                        >
+                                            <option value="">Preferred area</option>
+                                            {areas.map(area => (
+                                                <option key={area.id} value={area.id}>{area.name_en}</option>
+                                            ))}
+                                        </select>
+                                        {errors.preferred_area_id && <p className="mt-1 text-xs text-red-600">{errors.preferred_area_id}</p>}
                                     </div>
 
                                     <div className="sm:col-span-2">

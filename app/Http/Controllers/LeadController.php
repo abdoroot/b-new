@@ -15,7 +15,7 @@ class LeadController extends Controller
             'email' => 'nullable|email|max:255',
             'budget_range_id' => 'nullable|exists:price_ranges,id',
             'lead_purpose_id' => 'nullable|exists:lead_purposes,id',
-            'preferred_area' => 'nullable|string|max:255',
+            'preferred_area_id' => 'nullable|exists:areas,id',
             'message' => 'nullable|string',
         ]);
 
@@ -25,8 +25,9 @@ class LeadController extends Controller
             'email' => $validated['email'] ?? null,
             'budget_range_id' => $validated['budget_range_id'] ?? null,
             'lead_purpose_id' => $validated['lead_purpose_id'] ?? null,
+            'preferred_area_id' => $validated['preferred_area_id'] ?? null,
             'message' => $validated['message'] ?? null,
-            'source' => 'contact_form',
+            'source' => 'website_contact_form',
             'status' => 'new',
         ]);
 

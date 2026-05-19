@@ -7,15 +7,15 @@ export default function OpportunityCard({ opportunity }) {
             <div className="p-5">
                 <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-amber-700">
                     <MapPin size={14} />
-                    {opportunity.area_name}
+                    {opportunity.area_name || 'Sharjah'}
                 </div>
 
                 <h3 className="mt-3 text-lg font-semibold leading-snug text-stone-950">
-                    {opportunity.title}
+                    {opportunity.title || 'Land Opportunity'}
                 </h3>
 
                 <p className="mt-4 text-sm leading-6 text-stone-600">
-                    {opportunity.land_use_name}
+                    {opportunity.land_use_name || 'Land'}
                 </p>
 
                 <div className="mt-5 rounded-2xl border border-stone-100 bg-stone-50 px-4 py-3">
@@ -24,14 +24,14 @@ export default function OpportunityCard({ opportunity }) {
                             Asking range
                         </p>
 
-                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold" style={{ color: opportunity.ownership_color }}>
-                            <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: opportunity.ownership_color }} />
-                            {opportunity.ownership_label}
+                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold" style={{ color: opportunity.ownership_color || '#B38E44' }}>
+                            <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: opportunity.ownership_color || '#B38E44' }} />
+                            {opportunity.ownership_label || 'Ownership Eligibility'}
                         </span>
                     </div>
 
                     <p className="mt-2 text-base font-semibold text-stone-950">
-                        {opportunity.price_range_label}
+                        {opportunity.price_range_label || 'Contact for details'}
                     </p>
                 </div>
 

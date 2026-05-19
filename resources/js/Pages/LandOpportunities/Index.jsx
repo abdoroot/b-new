@@ -69,6 +69,17 @@ export default function LandOpportunitiesIndex({ opportunities = [], filterOptio
 
                                 <select 
                                     className={filterClass} 
+                                    value={filters.land_use || ''}
+                                    onChange={(e) => handleFilterChange('land_use', e.target.value)}
+                                >
+                                    <option value="">All land uses</option>
+                                    {land_uses.map(use => (
+                                        <option key={use.id} value={use.slug}>{use.name_en}</option>
+                                    ))}
+                                </select>
+
+                                <select 
+                                    className={filterClass} 
                                     value={filters.price_range || ''}
                                     onChange={(e) => handleFilterChange('price_range', e.target.value)}
                                 >
@@ -86,17 +97,6 @@ export default function LandOpportunitiesIndex({ opportunities = [], filterOptio
                                     <option value="">All ownership types</option>
                                     {ownership_types.map(type => (
                                         <option key={type.id} value={type.slug}>{type.name_en}</option>
-                                    ))}
-                                </select>
-
-                                <select 
-                                    className={filterClass} 
-                                    value={filters.land_use || ''}
-                                    onChange={(e) => handleFilterChange('land_use', e.target.value)}
-                                >
-                                    <option value="">All land uses</option>
-                                    {land_uses.map(use => (
-                                        <option key={use.id} value={use.slug}>{use.name_en}</option>
                                     ))}
                                 </select>
                             </div>
