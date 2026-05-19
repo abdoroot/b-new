@@ -2,7 +2,6 @@ import AdminLayout from '@/Layouts/AdminLayout';
 import { Link, router } from '@inertiajs/react';
 import { Edit, Trash2, Plus, Search, Star, Clock } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { pickBy } from 'lodash';
 
 export default function Index({ opportunities, filters, areas }) {
     const [search, setSearch] = useState(filters.search || '');
@@ -11,7 +10,11 @@ export default function Index({ opportunities, filters, areas }) {
     const [areaId, setAreaId] = useState(filters.area_id || '');
 
     const handleSearch = () => {
-        const query = pickBy({ search, status, featured, area_id: areaId });
+        const params = { search, status, featured, area_id: areaId };
+        const query = Object.fromEntries(
+            Object.entries(params).filter(([_, v]) => v !== '' && v !== null && v !== undefined)
+        );
+
         router.get(route('admin.opportunities.index'), query, {
             preserveState: true,
             replace: true,
