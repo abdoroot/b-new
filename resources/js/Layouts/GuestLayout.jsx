@@ -4,9 +4,9 @@ import { Link } from '@inertiajs/react';
 export default function GuestLayout({ children }) {
     return (
         <div className="flex min-h-screen flex-col items-center bg-neutral-950 pt-6 sm:justify-center sm:pt-0">
-            <div className="mb-8">
+            <div className="mb-10">
                 <Link href="/">
-                    <ApplicationLogo className="h-24 w-24 object-contain" />
+                    <ApplicationLogo className="h-32 w-32 object-contain" />
                 </Link>
             </div>
 
