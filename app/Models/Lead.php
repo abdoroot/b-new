@@ -9,6 +9,12 @@ class Lead extends Model
 {
     use HasFactory;
 
+    const STATUS_NEW = 'new';
+    const STATUS_CONTACTED = 'contacted';
+    const STATUS_QUALIFIED = 'qualified';
+    const STATUS_CLOSED = 'closed';
+    const STATUS_IGNORED = 'ignored';
+
     protected $fillable = [
         'name',
         'phone',
@@ -22,6 +28,17 @@ class Lead extends Model
         'source',
         'status',
     ];
+
+    public static function statuses(): array
+    {
+        return [
+            self::STATUS_NEW => 'New',
+            self::STATUS_CONTACTED => 'Contacted',
+            self::STATUS_QUALIFIED => 'Qualified',
+            self::STATUS_CLOSED => 'Closed',
+            self::STATUS_IGNORED => 'Ignored',
+        ];
+    }
 
     public function budgetRange()
     {

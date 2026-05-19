@@ -23,13 +23,24 @@ Route::post('/leads', [LeadController::class, 'store'])->name('leads.store');
 
 // Auth Routes (Breeze)
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return redirect()->route('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Admin Area
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('/dashboard', \App\Http\Controllers\Admin\DashboardController::class)->name('dashboard');
+        
+        Route::prefix('leads')->name('leads.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\Admin\LeadController::class, 'index'])->name('index');
+            Route::get('/{lead}', [\App\Http\Controllers\Admin\LeadController::class, 'show'])->name('show');
+            Route::patch('/{lead}/status', [\App\Http\Controllers\Admin\LeadController::class, 'updateStatus'])->name('update-status');
+        });
+    });
 });
 
 require __DIR__.'/auth.php';

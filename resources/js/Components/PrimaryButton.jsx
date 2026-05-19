@@ -3,7 +3,7 @@ export default function PrimaryButton({ children, className = '', disabled, ...p
         <button
             {...props}
             disabled={disabled}
-            className={`inline-flex items-center justify-center rounded-xl bg-teal-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-600 disabled:opacity-50 ${className}`}
+            className={`inline-flex items-center justify-center rounded-xl bg-amber-500 px-6 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-amber-400 focus:outline-none focus:ring-4 focus:ring-amber-500/20 disabled:opacity-50 ${className}`}
         >
             {children}
         </button>
