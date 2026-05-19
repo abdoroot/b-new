@@ -1,5 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
-import { LayoutDashboard, Users, LogOut, Menu, X, Home } from 'lucide-react';
+import { LayoutDashboard, Users, LogOut, Menu, X, Home, Map } from 'lucide-react';
 import { useState } from 'react';
 
 export default function AdminLayout({ children }) {
@@ -8,6 +8,7 @@ export default function AdminLayout({ children }) {
 
     const navItems = [
         { label: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
+        { label: 'Opportunities', href: '/admin/opportunities', icon: Map },
         { label: 'Leads', href: '/admin/leads', icon: Users },
     ];
 
