@@ -1,3 +1,4 @@
+import { usePage } from '@inertiajs/react';
 import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
 import PrimaryButton from './PrimaryButton';
 
@@ -14,13 +15,17 @@ const landLinks = [
     { label: 'Mixed-Use Land Opportunities', href: '/land-opportunities' },
 ];
 
-const contactDetails = {
-    address: 'Rolla, Mall Office 415, Sharjah, UAE',
-    phone: '065 556 777',
-    email: 'info@barakahre.com',
-};
-
 export default function Footer() {
+    const { siteSettings = {} } = usePage().props;
+
+    const contactDetails = {
+        address: siteSettings.contact_address || 'Rolla, Mall Office 415, Sharjah, UAE',
+        phone: siteSettings.contact_phone || '065 556 777',
+        email: siteSettings.contact_email || 'info@barakahre.com',
+    };
+
+    const whatsappUrl = siteSettings.contact_whatsapp_url || "https://wa.me/971XXXXXXXXX";
+
     return (
         <footer className="mt-16 border-t border-amber-500/20 bg-neutral-950 text-stone-300">
             <div className="container-shell py-14 sm:py-16 lg:py-20">
@@ -30,15 +35,15 @@ export default function Footer() {
                             <div className="flex items-center gap-4">
                                 <img
                                     src="/assets/images/30-albarahah.jpg"
-                                    alt="Al Barakah Real Estate"
+                                    alt={siteSettings.company_name || "Al Barakah Real Estate"}
                                     className="h-20 w-20 rounded-sm object-contain sm:h-24 sm:w-24"
                                 />
                                 <div>
                                     <p className="text-xs font-semibold tracking-[0.16em] text-amber-200 uppercase">
-                                        Sharjah Land Advisory
+                                        {siteSettings.site_positioning || "Sharjah Land Advisory"}
                                     </p>
                                     <p className="mt-1 text-lg font-semibold text-stone-100">
-                                        Al Barakah Real Estate
+                                        {siteSettings.company_name || "Al Barakah Real Estate"}
                                     </p>
                                 </div>
                             </div>
@@ -101,17 +106,22 @@ export default function Footer() {
                         </div>
 
                         <div className="hidden lg:block">
-                            <PrimaryButton className="w-full items-center justify-center gap-2 border border-amber-400/30 bg-amber-500/10 text-neutral-950 hover:bg-amber-400">
+                            <a 
+                                href={whatsappUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-amber-400/30 bg-amber-500/10 text-sm font-semibold text-amber-200 transition hover:bg-amber-500/20"
+                            >
                                 <MessageCircle size={18} />
                                 WhatsApp Consultation
-                            </PrimaryButton>
+                            </a>
                         </div>
                     </div>
                 </div>
 
                 <div className="mt-10 border-t border-amber-500/15 pt-6">
                     <p className="text-sm text-stone-500">
-                        © 2026 Al Barakah Real Estate. All rights reserved.
+                        © 2026 {siteSettings.company_name || "Al Barakah Real Estate"}. All rights reserved.
                     </p>
                 </div>
             </div>

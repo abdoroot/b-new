@@ -1,32 +1,8 @@
 import { Link } from '@inertiajs/react';
-import { ArrowRight, MapPin, ShieldCheck } from 'lucide-react';
+import { ArrowRight, MapPin } from 'lucide-react';
 import FrontLayout from '../../Layouts/FrontLayout';
-import LeadCaptureBlock from '../../Components/Lead/LeadCaptureBlock';
-import WhatsAppCTA from '../../Components/Lead/WhatsAppCTA';
-import { opportunityList } from '../../data/mockData';
 
-const ownershipLabels = {
-    allNationalities: {
-        label: 'Freehold • All Nationalities',
-        classes: 'text-[#0F8A5F]',
-        dot: 'bg-[#0F8A5F]',
-    },
-    gccNationals: {
-        label: 'UAE & GCC Nationals',
-        classes: 'text-[#8A6A2F]',
-        dot: 'bg-[#B38E44]',
-    },
-    restricted: {
-        label: 'Restricted Ownership',
-        classes: 'text-slate-600',
-        dot: 'bg-slate-500',
-    },
-};
-
-export default function LandOpportunitiesShow({ slug }) {
-    const opportunity = opportunityList.find((item) => item.slug === slug) ?? opportunityList[0];
-    const ownership = ownershipLabels[opportunity.ownershipType || 'allNationalities'];
-
+export default function LandOpportunitiesShow({ opportunity }) {
     return (
         <FrontLayout>
             <main className="bg-stone-50">
@@ -44,7 +20,7 @@ export default function LandOpportunitiesShow({ slug }) {
                             <div className="flex flex-wrap items-center gap-4">
                                 <span className="inline-flex items-center gap-2 text-sm font-semibold text-amber-800">
                                     <MapPin size={16} />
-                                    {opportunity.area}
+                                    {opportunity.area_name}
                                 </span>
                             </div>
 
@@ -54,15 +30,16 @@ export default function LandOpportunitiesShow({ slug }) {
 
                             <div className="mt-5">
                                 <span
-                                    className={`inline-flex items-center gap-2 rounded-full border border-current/10 bg-white/70 px-4 py-2 text-sm font-semibold ${ownership.classes}`}
+                                    className="inline-flex items-center gap-2 rounded-full border border-current/10 bg-white/70 px-4 py-2 text-sm font-semibold"
+                                    style={{ color: opportunity.ownership_color }}
                                 >
-                                    <span className={`h-2 w-2 rounded-full ${ownership.dot}`} />
-                                    {ownership.label}
+                                    <span className="h-2 w-2 rounded-full" style={{ backgroundColor: opportunity.ownership_color }} />
+                                    {opportunity.ownership_label}
                                 </span>
                             </div>
 
                             <p className="mt-5 max-w-2xl text-base leading-8 text-stone-600">
-                                Curated land opportunity prepared for early assessment, ownership eligibility, and investment positioning.
+                                {opportunity.short_description || 'Curated land opportunity prepared for early assessment, ownership eligibility, and investment positioning.'}
                             </p>
                         </div>
                     </div>
@@ -81,10 +58,10 @@ export default function LandOpportunitiesShow({ slug }) {
 
                         <div className="border-b border-stone-100 p-6 lg:border-b-0 lg:border-r">
                             <p className="text-[11px] font-medium tracking-[0.08em] text-stone-500">
-                                Asking price
+                                Asking range
                             </p>
                             <p className="mt-2 text-sm font-semibold text-stone-950">
-                                {opportunity.askingPrice}
+                                {opportunity.price_range_label}
                             </p>
                         </div>
 
@@ -93,7 +70,7 @@ export default function LandOpportunitiesShow({ slug }) {
                                 Land use
                             </p>
                             <p className="mt-2 text-sm font-semibold text-stone-950">
-                                {opportunity.landType}
+                                {opportunity.land_use_name}
                             </p>
                         </div>
                     </div>
@@ -107,7 +84,7 @@ export default function LandOpportunitiesShow({ slug }) {
                                     Investment insight
                                 </p>
                                 <p className="mt-4 text-lg leading-9 text-stone-700">
-                                    {opportunity.investmentInsight}
+                                    {opportunity.investment_insight}
                                 </p>
                             </div>
 
@@ -116,7 +93,7 @@ export default function LandOpportunitiesShow({ slug }) {
                                     Area growth trigger
                                 </p>
                                 <p className="mt-4 text-lg leading-9 text-stone-700">
-                                    {opportunity.areaGrowthTrigger}
+                                    {opportunity.area_growth_trigger}
                                 </p>
                             </div>
                         </div>

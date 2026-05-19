@@ -69,24 +69,28 @@ class DatabaseSeeder extends Seeder
         $priceRanges = [
             [
                 'label_en' => 'Under AED 1M',
+                'slug' => 'under-aed-1m',
                 'min_amount' => 0,
                 'max_amount' => 1000000,
                 'sort_order' => 1,
             ],
             [
                 'label_en' => 'AED 1M – 3M',
+                'slug' => 'aed-1m-3m',
                 'min_amount' => 1000000,
                 'max_amount' => 3000000,
                 'sort_order' => 2,
             ],
             [
                 'label_en' => 'AED 3M – 5M',
+                'slug' => 'aed-3m-5m',
                 'min_amount' => 3000000,
                 'max_amount' => 5000000,
                 'sort_order' => 3,
             ],
             [
                 'label_en' => 'Above AED 5M',
+                'slug' => 'above-aed-5m',
                 'min_amount' => 5000000,
                 'max_amount' => null,
                 'sort_order' => 4,
@@ -95,8 +99,9 @@ class DatabaseSeeder extends Seeder
 
         foreach ($priceRanges as $range) {
             PriceRange::updateOrCreate(
-                ['label_en' => $range['label_en']],
+                ['slug' => $range['slug']],
                 [
+                    'label_en' => $range['label_en'],
                     'min_amount' => $range['min_amount'],
                     'max_amount' => $range['max_amount'],
                     'sort_order' => $range['sort_order'],
@@ -122,7 +127,46 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-        // 5. Land Opportunities
+        // 5. Lead Purposes
+        $leadPurposes = [
+            [
+                'label_en' => 'Investment',
+                'sort_order' => 1,
+            ],
+            [
+                'label_en' => 'End-use purchase',
+                'sort_order' => 2,
+            ],
+            [
+                'label_en' => 'Development',
+                'sort_order' => 3,
+            ],
+            [
+                'label_en' => 'Land banking',
+                'sort_order' => 4,
+            ],
+            [
+                'label_en' => 'Ownership eligibility inquiry',
+                'sort_order' => 5,
+            ],
+            [
+                'label_en' => 'Request specific opportunity details',
+                'sort_order' => 6,
+            ],
+        ];
+
+        foreach ($leadPurposes as $purpose) {
+            \App\Models\LeadPurpose::updateOrCreate(
+                ['slug' => Str::slug($purpose['label_en'])],
+                [
+                    'label_en' => $purpose['label_en'],
+                    'sort_order' => $purpose['sort_order'],
+                    'is_active' => true,
+                ]
+            );
+        }
+
+        // 6. Land Opportunities
         $opps = [
             [
                 'title_en' => 'Premium Industrial Plot in Al Saja’a',
@@ -223,5 +267,58 @@ class DatabaseSeeder extends Seeder
                 ]
             );
         }
+
+        // 7. Site Settings
+        $settings = [
+            [
+                'key' => 'contact_address',
+                'value' => 'Rolla, Mall Office 415, Sharjah, UAE',
+                'group' => 'contact',
+            ],
+            [
+                'key' => 'contact_phone',
+                'value' => '065 556 777',
+                'group' => 'contact',
+            ],
+            [
+                'key' => 'contact_email',
+                'value' => 'info@barakahre.com',
+                'group' => 'contact',
+            ],
+            [
+                'key' => 'contact_whatsapp',
+                'value' => '971XXXXXXXXX',
+                'group' => 'contact',
+            ],
+            [
+                'key' => 'contact_whatsapp_url',
+                'value' => 'https://wa.me/971XXXXXXXXX',
+                'group' => 'contact',
+            ],
+            [
+                'key' => 'company_name',
+                'value' => 'Al Barakah Real Estate',
+                'group' => 'general',
+            ],
+            [
+                'key' => 'site_positioning',
+                'value' => 'Sharjah Land Advisory',
+                'group' => 'general',
+            ],
+        ];
+
+        foreach ($settings as $setting) {
+            \App\Models\SiteSetting::updateOrCreate(
+                ['key' => $setting['key']],
+                [
+                    'value' => $setting['value'],
+                    'group' => $setting['group'],
+                    'is_public' => true,
+                ]
+            );
+        }
+
+        // Clear settings cache
+        app(\App\Services\SiteSettingsService::class)->clearCache();
     }
 }

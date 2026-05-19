@@ -11,8 +11,11 @@ const links = [
 ];
 
 export default function Header() {
-    const { url } = usePage();
+    const { url, props } = usePage();
+    const { siteSettings = {} } = props;
     const [menuOpen, setMenuOpen] = useState(false);
+
+    const whatsappUrl = siteSettings.contact_whatsapp_url || "https://wa.me/971XXXXXXXXX";
 
     return (
         <header className="sticky top-0 z-50 border-b border-amber-500/10 bg-neutral-950/90 backdrop-blur-xl">
@@ -20,16 +23,16 @@ export default function Header() {
                 <Link href="/" className="flex shrink-0 items-center gap-4" onClick={() => setMenuOpen(false)}>
                     <img
                         src="/assets/images/logo.webp"
-                        alt="Al Barakah Real Estate"
+                        alt={siteSettings.company_name || "Al Barakah Real Estate"}
                         className="h-20 w-20 object-contain sm:h-20 sm:w-20"
                     />
 
                     <div className="hidden sm:block">
                         <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-200">
-                            Sharjah Land Advisory
+                            {siteSettings.site_positioning || "Sharjah Land Advisory"}
                         </p>
                         <p className="mt-1 text-sm font-medium text-stone-100">
-                            Al Barakah Real Estate
+                            {siteSettings.company_name || "Al Barakah Real Estate"}
                         </p>
                     </div>
                 </Link>
@@ -54,10 +57,15 @@ export default function Header() {
                 </nav>
 
                 <div className="hidden lg:flex">
-                    <PrimaryButton className="inline-flex w-full items-center justify-center gap-2 bg-amber-500 text-neutral-950 hover:bg-amber-400 sm:w-auto border border-amber-400/30 bg-amber-500/10">
+                    <a 
+                        href={whatsappUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-amber-400/30 bg-amber-500/10 px-5 text-sm font-semibold text-amber-200 transition hover:bg-amber-500/20"
+                    >
                         <MessageCircle size={18} />
                         WhatsApp Consultation
-                    </PrimaryButton>
+                    </a>
                 </div>
 
                 <button

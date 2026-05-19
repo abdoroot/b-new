@@ -5,7 +5,6 @@ import FrontLayout from '../Layouts/FrontLayout';
 import PrimaryButton from '../Components/PrimaryButton';
 import SectionHeader from '../Components/SectionHeader';
 import OpportunityCard from '../Components/LandOpportunity/OpportunityCard';
-import { opportunityList } from '../data/mockData';
 
 const trustItems = [
     'Sharjah land focus',
@@ -13,7 +12,7 @@ const trustItems = [
     'Investor advisory',
 ];
 
-export default function Home() {
+export default function Home({ featuredOpportunities = [] }) {
     return (
         <FrontLayout>
             <main className="">
@@ -93,7 +92,7 @@ export default function Home() {
                     />
 
                     <div className="mt-6 grid gap-6 sm:mt-8 sm:grid-cols-2 lg:grid-cols-3">
-                        {opportunityList.slice(0, 6).map((opportunity) => (
+                        {featuredOpportunities.map((opportunity) => (
                             <OpportunityCard key={opportunity.slug} opportunity={opportunity} />
                         ))}
                     </div>

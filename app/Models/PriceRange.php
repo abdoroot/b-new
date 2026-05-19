@@ -11,6 +11,7 @@ class PriceRange extends Model
 
     protected $fillable = [
         'label_en',
+        'slug',
         'label_ar',
         'min_amount',
         'max_amount',

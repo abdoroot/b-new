@@ -14,6 +14,7 @@ class Lead extends Model
         'phone',
         'email',
         'budget_range_id',
+        'lead_purpose_id',
         'purpose',
         'preferred_area_id',
         'land_opportunity_id',
@@ -25,6 +26,11 @@ class Lead extends Model
     public function budgetRange()
     {
         return $this->belongsTo(PriceRange::class, 'budget_range_id');
+    }
+
+    public function leadPurpose()
+    {
+        return $this->belongsTo(LeadPurpose::class);
     }
 
     public function preferredArea()
