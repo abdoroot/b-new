@@ -1,7 +1,6 @@
 import { useForm, usePage } from '@inertiajs/react';
 import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
 import FrontLayout from '../../Layouts/FrontLayout';
-import PrimaryButton from '../../Components/PrimaryButton';
 
 const inputClass =
     'w-full rounded-xl border border-stone-200 bg-white px-4 py-3 text-sm text-stone-800 outline-none transition placeholder:text-stone-400 focus:border-amber-700/40 focus:ring-2 focus:ring-amber-700/10';
@@ -143,13 +142,13 @@ export default function ContactIndex({ leadPurposes = [], priceRanges = [], area
                                 </div>
 
                                 <div className="mt-6">
-                                    <PrimaryButton 
+                                    <button
                                         type="submit"
                                         disabled={processing}
-                                        className="w-full bg-neutral-950 text-amber-100 hover:bg-neutral-800 sm:w-auto disabled:opacity-50"
+                                        className="inline-flex items-center gap-2 rounded-xl bg-neutral-950 px-5 py-3 text-sm font-semibold text-amber-100 transition hover:bg-neutral-800"
                                     >
                                         {processing ? 'Sending...' : 'Send request'}
-                                    </PrimaryButton>
+                                    </button>
                                 </div>
                             </form>
                         </div>

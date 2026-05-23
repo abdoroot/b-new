@@ -1,7 +1,6 @@
 import { router, Link } from '@inertiajs/react';
 import FrontLayout from '../../Layouts/FrontLayout';
 import OpportunityCard from '../../Components/LandOpportunity/OpportunityCard';
-import PrimaryButton from '../../Components/PrimaryButton';
 
 const filterClass =
     'w-full rounded-xl border border-stone-200 bg-white px-4 py-3 text-sm text-stone-700 outline-none transition focus:border-amber-700/40 focus:ring-2 focus:ring-amber-700/10';
@@ -142,12 +141,14 @@ export default function LandOpportunitiesIndex({ opportunities = [], filterOptio
                                 Need details on matching land opportunities? Share your brief and our advisory team will respond.
                             </p>
 
-                            <Link 
-                                href="/contact"
-                                className="mt-4 inline-flex items-center justify-center rounded-xl bg-amber-500 px-6 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-amber-400 sm:mt-0"
-                            >
-                                Request details
-                            </Link>
+                            <div className="mt-4 sm:mt-0">
+                                <Link 
+                                    href="/contact"
+                                    className="inline-flex items-center gap-2 rounded-xl bg-neutral-950 px-5 py-3 text-sm font-semibold text-amber-100 transition hover:bg-neutral-800"
+                                >
+                                    Request details
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </section>
