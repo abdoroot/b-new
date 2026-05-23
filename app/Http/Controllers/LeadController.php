@@ -17,7 +17,7 @@ class LeadController extends Controller
             'budget_range_id' => 'nullable|exists:price_ranges,id',
             'lead_purpose_id' => 'nullable|exists:lead_purposes,id',
             'preferred_area_id' => 'nullable|exists:areas,id',
-            'message' => 'nullable|string',
+            'message' => 'required|string',
         ]);
 
         $lead = Lead::create([

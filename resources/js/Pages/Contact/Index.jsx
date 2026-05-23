@@ -136,6 +136,7 @@ export default function ContactIndex({ leadPurposes = [], priceRanges = [], area
                                             placeholder="Tell us what type of land opportunity you are looking for"
                                             value={data.message}
                                             onChange={e => setData('message', e.target.value)}
+                                            required
                                         />
                                         {errors.message && <p className="mt-1 text-xs text-red-600">{errors.message}</p>}
                                     </div>
