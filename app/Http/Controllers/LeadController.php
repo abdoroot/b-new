@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lead;
+use App\Jobs\SendLeadToHubSpotJob;
 use Illuminate\Http\Request;
 
 class LeadController extends Controller
@@ -19,7 +20,7 @@ class LeadController extends Controller
             'message' => 'nullable|string',
         ]);
 
-        Lead::create([
+        $lead = Lead::create([
             'name' => $validated['name'],
             'phone' => $validated['phone'],
             'email' => $validated['email'] ?? null,
@@ -29,7 +30,12 @@ class LeadController extends Controller
             'message' => $validated['message'] ?? null,
             'source' => 'website_contact_form',
             'status' => 'new',
+            'hubspot_sync_status' => config('hubspot.enabled') ? 'pending' : 'disabled',
         ]);
+
+        if (config('hubspot.enabled')) {
+            SendLeadToHubSpotJob::dispatch($lead->id);
+        }
 
         return back()->with('success', 'Your request has been sent successfully.');
     }

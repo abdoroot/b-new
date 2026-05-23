@@ -156,6 +156,56 @@ export default function Show({ lead, statuses }) {
                             </div>
                         </div>
 
+                        {/* HubSpot Sync Info */}
+                        <div className="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                            <div className="flex items-center justify-between mb-6">
+                                <h2 className="text-lg font-semibold text-stone-900">HubSpot Sync</h2>
+                                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${
+                                    lead.hubspot_sync_status === 'synced' ? 'bg-emerald-100 text-emerald-700' :
+                                    lead.hubspot_sync_status === 'failed' ? 'bg-red-100 text-red-700' :
+                                    lead.hubspot_sync_status === 'syncing' ? 'bg-blue-100 text-blue-700' :
+                                    'bg-stone-100 text-stone-700'
+                                }`}>
+                                    {lead.hubspot_sync_status || 'disabled'}
+                                </span>
+                            </div>
+                            
+                            <div className="space-y-4">
+                                {lead.hubspot_contact_id && (
+                                    <div>
+                                        <p className="text-xs text-stone-400 font-medium uppercase tracking-wider">Contact ID</p>
+                                        <p className="text-sm font-mono font-medium text-stone-900 truncate" title={lead.hubspot_contact_id}>
+                                            {lead.hubspot_contact_id}
+                                        </p>
+                                    </div>
+                                )}
+                                
+                                {lead.hubspot_synced_at && (
+                                    <div>
+                                        <p className="text-xs text-stone-400 font-medium uppercase tracking-wider">Last Synced</p>
+                                        <p className="text-sm font-medium text-stone-900">
+                                            {new Date(lead.hubspot_synced_at).toLocaleString()}
+                                        </p>
+                                    </div>
+                                )}
+
+                                {lead.hubspot_sync_error && (
+                                    <div className="p-3 bg-red-50 border border-red-100 rounded-xl">
+                                        <p className="text-xs text-red-500 font-semibold mb-1 uppercase tracking-wider">Error</p>
+                                        <p className="text-xs text-red-700 leading-relaxed italic">
+                                            {lead.hubspot_sync_error}
+                                        </p>
+                                    </div>
+                                )}
+
+                                {!lead.hubspot_contact_id && lead.hubspot_sync_status !== 'failed' && (
+                                    <p className="text-xs text-stone-500 italic">
+                                        {lead.hubspot_sync_status === 'disabled' ? 'HubSpot integration is currently disabled.' : 'Sync will be processed in the background.'}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+
                         {lead.land_opportunity && (
                             <div className="bg-amber-50 p-6 rounded-2xl shadow-sm border border-amber-100">
                                 <h2 className="text-lg font-semibold text-stone-900 mb-4 flex items-center gap-2">

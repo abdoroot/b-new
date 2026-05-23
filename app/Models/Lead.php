@@ -27,6 +27,15 @@ class Lead extends Model
         'message',
         'source',
         'status',
+        'hubspot_contact_id',
+        'hubspot_deal_id',
+        'hubspot_sync_status',
+        'hubspot_sync_error',
+        'hubspot_synced_at',
+    ];
+
+    protected $casts = [
+        'hubspot_synced_at' => 'datetime',
     ];
 
     public static function statuses(): array
