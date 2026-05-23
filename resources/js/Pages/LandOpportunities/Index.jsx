@@ -1,4 +1,4 @@
-import { router } from '@inertiajs/react';
+import { router, Link } from '@inertiajs/react';
 import FrontLayout from '../../Layouts/FrontLayout';
 import OpportunityCard from '../../Components/LandOpportunity/OpportunityCard';
 import PrimaryButton from '../../Components/PrimaryButton';
@@ -142,9 +142,12 @@ export default function LandOpportunitiesIndex({ opportunities = [], filterOptio
                                 Need details on matching land opportunities? Share your brief and our advisory team will respond.
                             </p>
 
-                            <PrimaryButton className="mt-4 bg-neutral-950 text-amber-100 hover:bg-neutral-800 sm:mt-0">
+                            <Link 
+                                href="/contact"
+                                className="mt-4 inline-flex items-center justify-center rounded-xl bg-amber-500 px-6 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-amber-400 sm:mt-0"
+                            >
                                 Request details
-                            </PrimaryButton>
+                            </Link>
                         </div>
                     </div>
                 </section>
