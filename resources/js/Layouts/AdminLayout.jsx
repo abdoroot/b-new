@@ -20,6 +20,10 @@ export default function AdminLayout({ children }) {
         { label: 'Lead Purposes', href: '/admin/references/lead-purposes', icon: MessageSquare },
     ];
 
+    const settingsItems = [
+        { label: 'Site Settings', href: '/admin/site-settings', icon: Settings },
+    ];
+
     const user = auth?.user || { name: 'Admin', email: '' };
 
     return (
@@ -37,13 +41,24 @@ export default function AdminLayout({ children }) {
                         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
                     }`}
                 >
-                    <SidebarContent navItems={navItems} referenceItems={referenceItems} user={user} onClose={() => setSidebarOpen(false)} />
+                    <SidebarContent 
+                        navItems={navItems} 
+                        referenceItems={referenceItems} 
+                        settingsItems={settingsItems}
+                        user={user} 
+                        onClose={() => setSidebarOpen(false)} 
+                    />
                 </aside>
             </div>
 
             {/* Sidebar for desktop */}
             <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:bg-stone-900 lg:text-stone-300 shrink-0">
-                <SidebarContent navItems={navItems} referenceItems={referenceItems} user={user} />
+                <SidebarContent 
+                    navItems={navItems} 
+                    referenceItems={referenceItems} 
+                    settingsItems={settingsItems}
+                    user={user} 
+                />
             </aside>
 
             {/* Main Content */}
@@ -89,7 +104,7 @@ export default function AdminLayout({ children }) {
     );
 }
 
-function SidebarContent({ navItems, referenceItems, user, onClose }) {
+function SidebarContent({ navItems, referenceItems, settingsItems, user, onClose }) {
     return (
         <div className="h-full flex flex-col">
             <div className="h-20 flex items-center px-6 border-b border-stone-800">
@@ -127,6 +142,32 @@ function SidebarContent({ navItems, referenceItems, user, onClose }) {
                     </p>
                     <div className="space-y-1">
                         {referenceItems.map((item) => {
+                            const Icon = item.icon;
+                            const active = window.location.pathname === item.href || window.location.pathname.startsWith(item.href + '/');
+                            
+                            return (
+                                <Link
+                                    key={item.href}
+                                    href={item.href}
+                                    onClick={onClose}
+                                    className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition ${
+                                        active ? 'bg-amber-500/10 text-amber-200' : 'hover:bg-stone-800 hover:text-white'
+                                    }`}
+                                >
+                                    <Icon size={18} />
+                                    {item.label}
+                                </Link>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                <div className="space-y-2">
+                    <p className="px-3 text-xs font-semibold text-stone-500 uppercase tracking-wider">
+                        Settings
+                    </p>
+                    <div className="space-y-1">
+                        {settingsItems.map((item) => {
                             const Icon = item.icon;
                             const active = window.location.pathname === item.href || window.location.pathname.startsWith(item.href + '/');
                             

@@ -52,6 +52,9 @@ Route::middleware('auth')->group(function () {
             Route::resource('price-ranges', \App\Http\Controllers\Admin\Reference\PriceRangeController::class)->except(['show']);
             Route::resource('lead-purposes', \App\Http\Controllers\Admin\Reference\LeadPurposeController::class)->except(['show']);
         });
+
+        Route::get('site-settings', [\App\Http\Controllers\Admin\SiteSettingController::class, 'index'])->name('site-settings.index');
+        Route::patch('site-settings', [\App\Http\Controllers\Admin\SiteSettingController::class, 'update'])->name('site-settings.update');
     });
 });
 

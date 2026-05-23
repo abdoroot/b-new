@@ -211,7 +211,7 @@ export default function Home({ featuredOpportunities = [] }) {
                                     href={whatsappUrl}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-amber-400/20 bg-amber-500 text-sm font-semibold text-neutral-950 transition hover:bg-amber-400 sm:w-auto"
+                                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-amber-400/20 bg-amber-500 px-5 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-amber-400 sm:w-auto"
                                 >
                                     <MessageCircle size={18} />
                                     WhatsApp Consultation
