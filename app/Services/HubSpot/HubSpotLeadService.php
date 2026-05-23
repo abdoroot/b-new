@@ -56,27 +56,11 @@ class HubSpotLeadService
 
     protected function mapLeadToProperties(Lead $lead): array
     {
-        $properties = [
+        return array_filter([
             'firstname' => $lead->name,
             'phone' => $lead->phone,
             'email' => $lead->email,
-            'lead_source' => $lead->source,
-            'hs_content_membership_notes' => $lead->message, // Using a standard field for notes if custom ones aren't setup
-        ];
-
-        // Add custom mapping info into a single notes/message field for simplicity if needed
-        $extraInfo = [];
-        if ($lead->budgetRange) $extraInfo[] = "Budget: " . $lead->budgetRange->label_en;
-        if ($lead->leadPurpose) $extraInfo[] = "Purpose: " . $lead->leadPurpose->label_en;
-        if ($lead->preferredArea) $extraInfo[] = "Area: " . $lead->preferredArea->name_en;
-        if ($lead->landOpportunity) $extraInfo[] = "Opportunity: " . $lead->landOpportunity->title_en;
-
-        if (!empty($extraInfo)) {
-            $properties['message'] = ($properties['hs_content_membership_notes'] ? $properties['hs_content_membership_notes'] . "\n\n" : "") . implode("\n", $extraInfo);
-        }
-
-        // Filter out null values
-        return array_filter($properties, fn($value) => !is_null($value));
+        ], fn($value) => !is_null($value) && $value !== '');
     }
 
     protected function findContactByEmail(string $email): ?string
