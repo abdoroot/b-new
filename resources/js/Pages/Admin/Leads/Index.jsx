@@ -1,8 +1,16 @@
 import AdminLayout from '@/Layouts/AdminLayout';
-import { Link } from '@inertiajs/react';
-import { Eye, Clock } from 'lucide-react';
+import { Link, useForm } from '@inertiajs/react';
+import { Eye, Clock, Trash2 } from 'lucide-react';
 
 export default function Index({ leads }) {
+    const { delete: destroy } = useForm();
+
+    const handleDelete = (id) => {
+        if (confirm('Are you sure you want to delete this lead?')) {
+            destroy(route('admin.leads.destroy', id));
+        }
+    };
+
     const getStatusColor = (status) => {
         const colors = {
             new: 'bg-amber-100 text-amber-700',
@@ -60,13 +68,19 @@ export default function Index({ leads }) {
                                             <Clock size={14} />
                                             {new Date(lead.created_at).toLocaleDateString()}
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-right">
+                                        <td className="px-6 py-4 whitespace-nowrap text-right space-x-2">
                                             <Link
                                                 href={`/admin/leads/${lead.id}`}
                                                 className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-stone-100 text-stone-600 hover:bg-amber-100 hover:text-amber-700 transition"
                                             >
                                                 <Eye size={18} />
                                             </Link>
+                                            <button
+                                                onClick={() => handleDelete(lead.id)}
+                                                className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-stone-100 text-stone-400 hover:bg-red-50 hover:text-red-600 transition"
+                                            >
+                                                <Trash2 size={18} />
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}

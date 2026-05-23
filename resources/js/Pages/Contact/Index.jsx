@@ -76,6 +76,17 @@ export default function ContactIndex({ leadPurposes = [], priceRanges = [], area
                                         />
                                         {errors.phone && <p className="mt-1 text-xs text-red-600">{errors.phone}</p>}
                                     </div>
+
+                                    <div className="sm:col-span-2">
+                                        <input 
+                                            type="email"
+                                            className={inputClass} 
+                                            placeholder="Email Address" 
+                                            value={data.email}
+                                            onChange={e => setData('email', e.target.value)}
+                                        />
+                                        {errors.email && <p className="mt-1 text-xs text-red-600">{errors.email}</p>}
+                                    </div>
                                     
                                     <div>
                                         <select 

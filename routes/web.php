@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [\App\Http\Controllers\Admin\LeadController::class, 'index'])->name('index');
             Route::get('/{lead}', [\App\Http\Controllers\Admin\LeadController::class, 'show'])->name('show');
             Route::patch('/{lead}/status', [\App\Http\Controllers\Admin\LeadController::class, 'updateStatus'])->name('update-status');
+            Route::delete('/{lead}', [\App\Http\Controllers\Admin\LeadController::class, 'destroy'])->name('destroy');
         });
 
         Route::resource('opportunities', \App\Http\Controllers\Admin\LandOpportunityController::class);
