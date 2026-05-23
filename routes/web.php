@@ -42,6 +42,16 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::resource('opportunities', \App\Http\Controllers\Admin\LandOpportunityController::class);
+
+        Route::prefix('references')->name('references.')->group(function () {
+            Route::resource('areas', \App\Http\Controllers\Admin\Reference\AreaController::class)->except(['show']);
+            Route::resource('land-uses', \App\Http\Controllers\Admin\Reference\LandUseController::class)
+                ->except(['show'])
+                ->parameters(['land-uses' => 'land_use']);
+            Route::resource('ownership-types', \App\Http\Controllers\Admin\Reference\OwnershipTypeController::class)->except(['show']);
+            Route::resource('price-ranges', \App\Http\Controllers\Admin\Reference\PriceRangeController::class)->except(['show']);
+            Route::resource('lead-purposes', \App\Http\Controllers\Admin\Reference\LeadPurposeController::class)->except(['show']);
+        });
     });
 });
 

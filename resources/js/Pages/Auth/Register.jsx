@@ -36,6 +36,7 @@ export default function Register() {
                         className="mt-1 block w-full"
                         autoComplete="name"
                         isFocused={true}
+                        isDark={true}
                         onChange={(e) => setData('name', e.target.value)}
                         required
                     />
@@ -53,6 +54,7 @@ export default function Register() {
                         value={data.email}
                         className="mt-1 block w-full"
                         autoComplete="username"
+                        isDark={true}
                         onChange={(e) => setData('email', e.target.value)}
                         required
                     />
@@ -70,6 +72,7 @@ export default function Register() {
                         value={data.password}
                         className="mt-1 block w-full"
                         autoComplete="new-password"
+                        isDark={true}
                         onChange={(e) => setData('password', e.target.value)}
                         required
                     />
@@ -90,6 +93,7 @@ export default function Register() {
                         value={data.password_confirmation}
                         className="mt-1 block w-full"
                         autoComplete="new-password"
+                        isDark={true}
                         onChange={(e) =>
                             setData('password_confirmation', e.target.value)
                         }
@@ -105,7 +109,7 @@ export default function Register() {
                 <div className="mt-4 flex items-center justify-end">
                     <Link
                         href={route('login')}
-                        className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        className="rounded-md text-sm text-stone-400 underline hover:text-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-500"
                     >
                         Already registered?
                     </Link>

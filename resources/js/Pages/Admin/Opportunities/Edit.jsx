@@ -6,7 +6,7 @@ import { ArrowLeft } from 'lucide-react';
 export default function Edit({ opportunity, areas, landUses, ownershipTypes, priceRanges }) {
     return (
         <AdminLayout>
-            <Head title={`Edit ${opportunity.title_en}`} />
+            <Head title={`Edit ${opportunity?.title_en || 'Opportunity'}`} />
 
             <div className="max-w-5xl mx-auto space-y-8">
                 <div className="flex items-center gap-4">
@@ -18,7 +18,7 @@ export default function Edit({ opportunity, areas, landUses, ownershipTypes, pri
                     </Link>
                     <div>
                         <h1 className="text-2xl font-bold text-stone-900 tracking-tight">Edit Opportunity</h1>
-                        <p className="text-sm text-stone-500 mt-1">Updating: {opportunity.title_en}</p>
+                        <p className="text-sm text-stone-500 mt-1">Updating: {opportunity?.title_en}</p>
                     </div>
                 </div>
 

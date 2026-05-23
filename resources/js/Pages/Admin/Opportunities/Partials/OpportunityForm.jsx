@@ -3,11 +3,9 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { useForm } from '@inertiajs/react';
-import { useEffect } from 'react';
-import { Str } from '@/utils/helpers'; // Assuming we might want a slug helper, but we'll do it manually for now
 
 export default function OpportunityForm({ opportunity, areas, landUses, ownershipTypes, priceRanges, isEditing = false }) {
-    const { data, setData, post, patch, processing, errors, transform } = useForm({
+    const { data, setData, post, patch, processing, errors } = useForm({
         title_en: opportunity?.title_en || '',
         slug: opportunity?.slug || '',
         area_id: opportunity?.area_id || '',
@@ -18,17 +16,11 @@ export default function OpportunityForm({ opportunity, areas, landUses, ownershi
         short_description_en: opportunity?.short_description_en || '',
         investment_insight_en: opportunity?.investment_insight_en || '',
         area_growth_trigger_en: opportunity?.area_growth_trigger_en || '',
-        is_featured: opportunity?.is_featured || false,
+        is_featured: !!opportunity?.is_featured,
         status: opportunity?.status || 'draft',
         sort_order: opportunity?.sort_order || 0,
-        published_at: opportunity?.published_at ? new Date(opportunity.published_at).toISOString().split('T')[0] : '',
+        published_at: opportunity?.published_at ? opportunity.published_at.split(' ')[0] : '',
     });
-
-    useEffect(() => {
-        if (!isEditing && data.title_en) {
-            setData('slug', data.title_en.toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-'));
-        }
-    }, [data.title_en]);
 
     const submit = (e) => {
         e.preventDefault();
@@ -42,7 +34,6 @@ export default function OpportunityForm({ opportunity, areas, landUses, ownershi
     return (
         <form onSubmit={submit} className="space-y-8">
             <div className="grid gap-6 lg:grid-cols-2">
-                {/* Basic Info */}
                 <div className="space-y-6 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
                     <h2 className="text-lg font-semibold text-stone-900">Basic Information</h2>
                     
@@ -50,7 +41,6 @@ export default function OpportunityForm({ opportunity, areas, landUses, ownershi
                         <InputLabel htmlFor="title_en" value="Title (English)" />
                         <TextInput
                             id="title_en"
-                            type="text"
                             value={data.title_en}
                             className="mt-1 block w-full"
                             onChange={(e) => setData('title_en', e.target.value)}
@@ -63,7 +53,6 @@ export default function OpportunityForm({ opportunity, areas, landUses, ownershi
                         <InputLabel htmlFor="slug" value="Slug" />
                         <TextInput
                             id="slug"
-                            type="text"
                             value={data.slug}
                             className="mt-1 block w-full bg-stone-50"
                             onChange={(e) => setData('slug', e.target.value)}
@@ -139,21 +128,8 @@ export default function OpportunityForm({ opportunity, areas, landUses, ownershi
                             <InputError message={errors.price_range_id} className="mt-2" />
                         </div>
                     </div>
-
-                    <div>
-                        <InputLabel htmlFor="location_en" value="Specific Location" />
-                        <TextInput
-                            id="location_en"
-                            type="text"
-                            value={data.location_en}
-                            className="mt-1 block w-full"
-                            onChange={(e) => setData('location_en', e.target.value)}
-                        />
-                        <InputError message={errors.location_en} className="mt-2" />
-                    </div>
                 </div>
 
-                {/* Status & Settings */}
                 <div className="space-y-6 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
                     <h2 className="text-lg font-semibold text-stone-900">Visibility & Status</h2>
 
@@ -195,7 +171,7 @@ export default function OpportunityForm({ opportunity, areas, landUses, ownershi
                             onChange={(e) => setData('is_featured', e.target.checked)}
                         />
                         <label htmlFor="is_featured" className="text-sm font-medium text-amber-900">
-                            Feature this opportunity on the home page
+                            Feature this opportunity
                         </label>
                     </div>
 
@@ -213,10 +189,8 @@ export default function OpportunityForm({ opportunity, areas, landUses, ownershi
                 </div>
             </div>
 
-            {/* Descriptions & Insights */}
             <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-6">
-                <h2 className="text-lg font-semibold text-stone-900">Detailed Content</h2>
-                
+                <h2 className="text-lg font-semibold text-stone-900">Content</h2>
                 <div>
                     <InputLabel htmlFor="short_description_en" value="Short Description" />
                     <textarea
@@ -226,43 +200,10 @@ export default function OpportunityForm({ opportunity, areas, landUses, ownershi
                         className="mt-1 block w-full rounded-xl border-stone-200 focus:border-amber-500 focus:ring-amber-500 text-sm"
                         onChange={(e) => setData('short_description_en', e.target.value)}
                     />
-                    <InputError message={errors.short_description_en} className="mt-2" />
-                </div>
-
-                <div className="grid gap-6 lg:grid-cols-2">
-                    <div>
-                        <InputLabel htmlFor="investment_insight_en" value="Investment Insight" />
-                        <textarea
-                            id="investment_insight_en"
-                            value={data.investment_insight_en}
-                            rows="4"
-                            className="mt-1 block w-full rounded-xl border-stone-200 focus:border-amber-500 focus:ring-amber-500 text-sm"
-                            onChange={(e) => setData('investment_insight_en', e.target.value)}
-                        />
-                        <InputError message={errors.investment_insight_en} className="mt-2" />
-                    </div>
-
-                    <div>
-                        <InputLabel htmlFor="area_growth_trigger_en" value="Area Growth Trigger" />
-                        <textarea
-                            id="area_growth_trigger_en"
-                            value={data.area_growth_trigger_en}
-                            rows="4"
-                            className="mt-1 block w-full rounded-xl border-stone-200 focus:border-amber-500 focus:ring-amber-500 text-sm"
-                            onChange={(e) => setData('area_growth_trigger_en', e.target.value)}
-                        />
-                        <InputError message={errors.area_growth_trigger_en} className="mt-2" />
-                    </div>
                 </div>
             </div>
 
             <div className="flex items-center justify-end gap-4">
-                <Link
-                    href={route('admin.opportunities.index')}
-                    className="text-sm font-medium text-stone-500 hover:text-stone-700"
-                >
-                    Cancel
-                </Link>
                 <PrimaryButton disabled={processing}>
                     {isEditing ? 'Save Changes' : 'Create Opportunity'}
                 </PrimaryButton>

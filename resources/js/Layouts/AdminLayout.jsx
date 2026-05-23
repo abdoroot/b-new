@@ -1,15 +1,23 @@
 import { Link, usePage } from '@inertiajs/react';
-import { LayoutDashboard, Users, LogOut, Menu, X, Home, Map } from 'lucide-react';
+import { LayoutDashboard, Users, LogOut, Menu, X, Home, Map, MapPin, Tag, DollarSign, MessageSquare, Settings } from 'lucide-react';
 import { useState } from 'react';
 
 export default function AdminLayout({ children }) {
-    const { auth } = usePage().props;
+    const { auth, flash } = usePage().props;
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const navItems = [
         { label: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
         { label: 'Opportunities', href: '/admin/opportunities', icon: Map },
         { label: 'Leads', href: '/admin/leads', icon: Users },
+    ];
+
+    const referenceItems = [
+        { label: 'Areas', href: '/admin/references/areas', icon: MapPin },
+        { label: 'Land Uses', href: '/admin/references/land-uses', icon: Home },
+        { label: 'Ownership Types', href: '/admin/references/ownership-types', icon: Tag },
+        { label: 'Price Ranges', href: '/admin/references/price-ranges', icon: DollarSign },
+        { label: 'Lead Purposes', href: '/admin/references/lead-purposes', icon: MessageSquare },
     ];
 
     const user = auth?.user || { name: 'Admin', email: '' };
@@ -29,13 +37,13 @@ export default function AdminLayout({ children }) {
                         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
                     }`}
                 >
-                    <SidebarContent navItems={navItems} user={user} onClose={() => setSidebarOpen(false)} />
+                    <SidebarContent navItems={navItems} referenceItems={referenceItems} user={user} onClose={() => setSidebarOpen(false)} />
                 </aside>
             </div>
 
             {/* Sidebar for desktop */}
             <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:bg-stone-900 lg:text-stone-300 shrink-0">
-                <SidebarContent navItems={navItems} user={user} />
+                <SidebarContent navItems={navItems} referenceItems={referenceItems} user={user} />
             </aside>
 
             {/* Main Content */}
@@ -48,6 +56,18 @@ export default function AdminLayout({ children }) {
                     >
                         <Menu size={24} />
                     </button>
+
+                    {flash?.success && (
+                        <div className="ml-4 px-4 py-2 bg-green-100 text-green-800 text-sm font-medium rounded-lg border border-green-200 animate-fade-in-down">
+                            {flash.success}
+                        </div>
+                    )}
+
+                    {flash?.error && (
+                        <div className="ml-4 px-4 py-2 bg-red-100 text-red-800 text-sm font-medium rounded-lg border border-red-200 animate-fade-in-down">
+                            {flash.error}
+                        </div>
+                    )}
 
                     <div className="flex items-center gap-4 ml-auto">
                         <div className="text-right hidden sm:block">
@@ -69,7 +89,7 @@ export default function AdminLayout({ children }) {
     );
 }
 
-function SidebarContent({ navItems, user, onClose }) {
+function SidebarContent({ navItems, referenceItems, user, onClose }) {
     return (
         <div className="h-full flex flex-col">
             <div className="h-20 flex items-center px-6 border-b border-stone-800">
@@ -79,25 +99,53 @@ function SidebarContent({ navItems, user, onClose }) {
                 </Link>
             </div>
 
-            <nav className="flex-1 py-6 px-4 space-y-1">
-                {navItems.map((item) => {
-                    const Icon = item.icon;
-                    const active = window.location.pathname === item.href || window.location.pathname.startsWith(item.href + '/');
-                    
-                    return (
-                        <Link
-                            key={item.href}
-                            href={item.href}
-                            onClick={onClose}
-                            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition ${
-                                active ? 'bg-amber-500/10 text-amber-200' : 'hover:bg-stone-800 hover:text-white'
-                            }`}
-                        >
-                            <Icon size={18} />
-                            {item.label}
-                        </Link>
-                    );
-                })}
+            <nav className="flex-1 py-6 px-4 space-y-6 overflow-y-auto">
+                <div className="space-y-1">
+                    {navItems.map((item) => {
+                        const Icon = item.icon;
+                        const active = window.location.pathname === item.href || window.location.pathname.startsWith(item.href + '/');
+                        
+                        return (
+                            <Link
+                                key={item.href}
+                                href={item.href}
+                                onClick={onClose}
+                                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition ${
+                                    active ? 'bg-amber-500/10 text-amber-200' : 'hover:bg-stone-800 hover:text-white'
+                                }`}
+                            >
+                                <Icon size={18} />
+                                {item.label}
+                            </Link>
+                        );
+                    })}
+                </div>
+
+                <div className="space-y-2">
+                    <p className="px-3 text-xs font-semibold text-stone-500 uppercase tracking-wider">
+                        References
+                    </p>
+                    <div className="space-y-1">
+                        {referenceItems.map((item) => {
+                            const Icon = item.icon;
+                            const active = window.location.pathname === item.href || window.location.pathname.startsWith(item.href + '/');
+                            
+                            return (
+                                <Link
+                                    key={item.href}
+                                    href={item.href}
+                                    onClick={onClose}
+                                    className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition ${
+                                        active ? 'bg-amber-500/10 text-amber-200' : 'hover:bg-stone-800 hover:text-white'
+                                    }`}
+                                >
+                                    <Icon size={18} />
+                                    {item.label}
+                                </Link>
+                            );
+                        })}
+                    </div>
+                </div>
             </nav>
 
             <div className="p-4 border-t border-stone-800 space-y-1">
