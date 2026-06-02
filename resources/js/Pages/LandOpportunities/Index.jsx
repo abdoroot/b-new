@@ -50,7 +50,7 @@ export default function LandOpportunitiesIndex({ opportunities = [], filterOptio
                         </h1>
 
                         <p className="mt-5 max-w-2xl text-base leading-8 text-stone-600">
-                            Investment-focused shortlists filtered by area, price range, ownership eligibility, and land use.
+                            Investment-focused shortlists filtered by area, land use, price range, and buyer eligibility.
                         </p>
 
                         <div className="mt-8 rounded-3xl border border-stone-200 bg-white p-4 shadow-sm sm:p-5">
@@ -92,8 +92,9 @@ export default function LandOpportunitiesIndex({ opportunities = [], filterOptio
                                     className={filterClass} 
                                     value={filters.ownership_type || ''}
                                     onChange={(e) => handleFilterChange('ownership_type', e.target.value)}
+                                    aria-label="Buyer eligibility"
                                 >
-                                    <option value="">All ownership types</option>
+                                    <option value="">All buyer types</option>
                                     {ownership_types.map(type => (
                                         <option key={type.id} value={type.slug}>{type.name_en}</option>
                                     ))}

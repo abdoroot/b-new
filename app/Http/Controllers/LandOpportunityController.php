@@ -12,6 +12,12 @@ use Inertia\Inertia;
 
 class LandOpportunityController extends Controller
 {
+    private const BUYER_ELIGIBILITY_OWNERSHIP_SLUGS = [
+        'freehold-all-nationalities' => ['freehold-all-nationalities'],
+        'uae-gcc-nationals' => ['freehold-all-nationalities', 'uae-gcc-nationals'],
+        'restricted-ownership' => ['restricted-ownership'],
+    ];
+
     /**
      * Display a listing of the resource.
      */
@@ -34,8 +40,10 @@ class LandOpportunityController extends Controller
         }
 
         if ($request->filled('ownership_type')) {
-            $query->whereHas('ownershipType', function ($q) use ($request) {
-                $q->where('slug', $request->ownership_type);
+            $ownershipSlugs = self::BUYER_ELIGIBILITY_OWNERSHIP_SLUGS[$request->ownership_type] ?? [$request->ownership_type];
+
+            $query->whereHas('ownershipType', function ($q) use ($ownershipSlugs) {
+                $q->whereIn('slug', $ownershipSlugs);
             });
         }
 
