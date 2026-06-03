@@ -37,7 +37,7 @@ return [
             'investor_advisory' => 'Investor advisory',
         ],
         'shortlisted_eyebrow' => 'Curated Sharjah land opportunities',
-        'shortlisted_title' => 'Current shortlisted land opportunities',
+        'shortlisted_title' => 'Current Selected Land Opportunities',
         'shortlisted_description' => 'Selected opportunities framed around location, pricing, and investment context.',
         'explore_all' => 'Explore All Land Opportunities',
         'advisory_eyebrow' => 'Land Advisory',
@@ -59,7 +59,7 @@ return [
     'opportunities' => [
         'page_eyebrow' => 'Land Opportunities',
         'page_title' => 'Curated Sharjah land opportunities.',
-        'page_description' => 'Investment-focused shortlists filtered by area, land use, price range, and buyer eligibility.',
+        'page_description' => 'Curated Investment Opportunitiess filtered by area, land use, price range, and buyer eligibility.',
         'filters' => [
             'all_areas' => 'All areas',
             'all_land_uses' => 'All land uses',
