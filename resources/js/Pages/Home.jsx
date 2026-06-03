@@ -21,7 +21,7 @@ export default function Home({ featuredOpportunities = [] }) {
         <FrontLayout>
             <main>
                 <section className="relative overflow-hidden bg-[radial-gradient(circle_at_top,#faf7f1_0%,#f5f1e8_45%,#efe8dc_100%)]">
-                    <div className="absolute inset-0 opacity-[0.035]">
+                    <div className="pointer-events-none absolute inset-0 opacity-[0.035]">
     <div
         className="h-full w-full"
         style={{
@@ -31,7 +31,7 @@ export default function Home({ featuredOpportunities = [] }) {
         }}
     />
 </div>
-                    <div className="container-shell grid gap-8 py-16 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-10 lg:py-24">
+                    <div className="relative z-10 container-shell grid gap-8 py-16 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-10 lg:py-24">
                         <div className="space-y-6 sm:space-y-7">
                             <div className="space-y-4 sm:space-y-5">
                                 <h1 className="max-w-3xl text-[34px] font-semibold leading-[1.08] tracking-tight text-stone-950 sm:text-5xl lg:text-[54px]">
