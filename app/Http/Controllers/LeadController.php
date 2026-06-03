@@ -37,6 +37,6 @@ class LeadController extends Controller
             SendLeadToHubSpotJob::dispatch($lead->id);
         }
 
-        return back()->with('success', 'Your request has been sent successfully.');
+        return back()->with('success', __('messages.lead_request_sent'));
     }
 }

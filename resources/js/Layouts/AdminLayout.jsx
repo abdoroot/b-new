@@ -1,30 +1,32 @@
 import { Link, usePage } from '@inertiajs/react';
 import { LayoutDashboard, Users, LogOut, Menu, X, Home, Map, MapPin, Tag, DollarSign, MessageSquare, Settings } from 'lucide-react';
 import { useState } from 'react';
+import { t, useLocale } from '../lib/translations';
 
 export default function AdminLayout({ children }) {
     const { auth, flash } = usePage().props;
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const locale = useLocale();
 
     const navItems = [
-        { label: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
-        { label: 'Opportunities', href: '/admin/opportunities', icon: Map },
-        { label: 'Leads', href: '/admin/leads', icon: Users },
+        { label: t('admin.nav.dashboard'), href: '/admin/dashboard', icon: LayoutDashboard },
+        { label: t('admin.nav.opportunities'), href: '/admin/opportunities', icon: Map },
+        { label: t('admin.nav.leads'), href: '/admin/leads', icon: Users },
     ];
 
     const referenceItems = [
-        { label: 'Areas', href: '/admin/references/areas', icon: MapPin },
-        { label: 'Land Uses', href: '/admin/references/land-uses', icon: Home },
-        { label: 'Ownership Types', href: '/admin/references/ownership-types', icon: Tag },
-        { label: 'Price Ranges', href: '/admin/references/price-ranges', icon: DollarSign },
-        { label: 'Lead Purposes', href: '/admin/references/lead-purposes', icon: MessageSquare },
+        { label: t('admin.nav.areas'), href: '/admin/references/areas', icon: MapPin },
+        { label: t('admin.nav.land_uses'), href: '/admin/references/land-uses', icon: Home },
+        { label: t('admin.nav.ownership_types'), href: '/admin/references/ownership-types', icon: Tag },
+        { label: t('admin.nav.price_ranges'), href: '/admin/references/price-ranges', icon: DollarSign },
+        { label: t('admin.nav.lead_purposes'), href: '/admin/references/lead-purposes', icon: MessageSquare },
     ];
 
     const settingsItems = [
-        { label: 'Site Settings', href: '/admin/site-settings', icon: Settings },
+        { label: t('admin.nav.site_settings'), href: '/admin/site-settings', icon: Settings },
     ];
 
-    const user = auth?.user || { name: 'Admin', email: '' };
+    const user = auth?.user || { name: t('admin.layout.default_user'), email: '' };
 
     return (
         <div className="min-h-screen bg-stone-50 flex overflow-hidden text-stone-900">
@@ -37,8 +39,8 @@ export default function AdminLayout({ children }) {
                 <div className="fixed inset-0 bg-stone-900/50" onClick={() => setSidebarOpen(false)} />
                 
                 <aside
-                    className={`fixed inset-y-0 left-0 w-64 bg-stone-900 text-stone-300 transform transition-transform duration-300 ease-in-out ${
-                        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                    className={`fixed inset-y-0 ${locale.direction === 'rtl' ? 'right-0' : 'left-0'} w-64 bg-stone-900 text-stone-300 transform transition-transform duration-300 ease-in-out ${
+                        sidebarOpen ? 'translate-x-0' : locale.direction === 'rtl' ? 'translate-x-full' : '-translate-x-full'
                     }`}
                 >
                     <SidebarContent 
@@ -84,8 +86,8 @@ export default function AdminLayout({ children }) {
                         </div>
                     )}
 
-                    <div className="flex items-center gap-4 ml-auto">
-                        <div className="text-right hidden sm:block">
+                    <div className={`flex items-center gap-4 ${locale.direction === 'rtl' ? 'mr-auto' : 'ml-auto'}`}>
+                        <div className={`${locale.direction === 'rtl' ? 'text-left' : 'text-right'} hidden sm:block`}>
                             <p className="text-sm font-semibold text-stone-900">{user.name}</p>
                             <p className="text-xs text-stone-500">{user.email}</p>
                         </div>
@@ -110,7 +112,7 @@ function SidebarContent({ navItems, referenceItems, settingsItems, user, onClose
             <div className="h-20 flex items-center px-6 border-b border-stone-800">
                 <Link href="/admin/dashboard" className="flex items-center gap-3" onClick={onClose}>
                     <img src="/assets/images/logo.webp" alt="Logo" className="h-10 w-10" />
-                    <span className="font-semibold text-white tracking-tight">Admin Area</span>
+                    <span className="font-semibold text-white tracking-tight">{t('admin.layout.admin_area')}</span>
                 </Link>
             </div>
 
@@ -138,7 +140,7 @@ function SidebarContent({ navItems, referenceItems, settingsItems, user, onClose
 
                 <div className="space-y-2">
                     <p className="px-3 text-xs font-semibold text-stone-500 uppercase tracking-wider">
-                        References
+                        {t('admin.layout.references')}
                     </p>
                     <div className="space-y-1">
                         {referenceItems.map((item) => {
@@ -164,7 +166,7 @@ function SidebarContent({ navItems, referenceItems, settingsItems, user, onClose
 
                 <div className="space-y-2">
                     <p className="px-3 text-xs font-semibold text-stone-500 uppercase tracking-wider">
-                        Settings
+                        {t('admin.layout.settings')}
                     </p>
                     <div className="space-y-1">
                         {settingsItems.map((item) => {
@@ -195,7 +197,7 @@ function SidebarContent({ navItems, referenceItems, settingsItems, user, onClose
                     className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-stone-800 hover:text-white transition"
                 >
                     <Home size={18} />
-                    Public Site
+                    {t('admin.layout.public_site')}
                 </Link>
                 <Link
                     href="/logout"
@@ -204,7 +206,7 @@ function SidebarContent({ navItems, referenceItems, settingsItems, user, onClose
                     className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-stone-800 hover:text-white transition text-left"
                 >
                     <LogOut size={18} />
-                    Logout
+                    {t('admin.layout.logout')}
                 </Link>
             </div>
         </div>

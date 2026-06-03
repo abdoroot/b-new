@@ -1,18 +1,18 @@
 import { usePage } from '@inertiajs/react';
 import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
-import PrimaryButton from './PrimaryButton';
+import { t } from '../lib/translations';
 
 const quickNavigation = [
-    { label: 'Home', href: '/' },
-    { label: 'Land Opportunities', href: '/land-opportunities' },
-    { label: 'Land Advisory', href: '/advisory' },
-    { label: 'Contact', href: '/contact' },
+    { key: 'public.nav.home', href: '/' },
+    { key: 'public.nav.land_opportunities', href: '/land-opportunities' },
+    { key: 'public.nav.land_advisory', href: '/advisory' },
+    { key: 'public.nav.contact', href: '/contact' },
 ];
 
 const landLinks = [
-    { label: 'Industrial Land Opportunities', href: '/land-opportunities' },
-    { label: 'Commercial Land Opportunities', href: '/land-opportunities' },
-    { label: 'Mixed-Use Land Opportunities', href: '/land-opportunities' },
+    { key: 'public.footer.industrial_land', href: '/land-opportunities' },
+    { key: 'public.footer.commercial_land', href: '/land-opportunities' },
+    { key: 'public.footer.mixed_use_land', href: '/land-opportunities' },
 ];
 
 export default function Footer() {
@@ -49,21 +49,21 @@ export default function Footer() {
                             </div>
 
                             <p className="mt-4 text-sm leading-6 text-stone-400">
-                                Curated Sharjah land opportunities backed by disciplined pricing review and investor-focused advisory.
+                                {t('public.footer.description')}
                             </p>
                         </div>
                     </div>
 
                     <div className="lg:col-span-2">
-                        <p className="text-sm font-semibold text-amber-200">Quick Navigation</p>
+                        <p className="text-sm font-semibold text-amber-200">{t('public.footer.quick_navigation')}</p>
                         <ul className="mt-4 space-y-2 text-sm">
                             {quickNavigation.map((link) => (
-                                <li key={link.label}>
+                                <li key={link.key}>
                                     <a
                                         href={link.href}
                                         className="text-stone-400 transition hover:text-amber-200"
                                     >
-                                        {link.label}
+                                        {t(link.key)}
                                     </a>
                                 </li>
                             ))}
@@ -71,15 +71,15 @@ export default function Footer() {
                     </div>
 
                     <div className="lg:col-span-3">
-                        <p className="text-sm font-semibold text-amber-200">Land Opportunities</p>
+                        <p className="text-sm font-semibold text-amber-200">{t('public.footer.land_opportunities')}</p>
                         <ul className="mt-4 space-y-2 text-sm">
                             {landLinks.map((link) => (
-                                <li key={link.label}>
+                                <li key={link.key}>
                                     <a
                                         href={link.href}
                                         className="text-stone-400 transition hover:text-amber-200"
                                     >
-                                        {link.label}
+                                        {t(link.key)}
                                     </a>
                                 </li>
                             ))}
@@ -88,7 +88,7 @@ export default function Footer() {
 
                     <div className="space-y-5 lg:col-span-3">
                         <div>
-                            <p className="text-sm font-semibold text-amber-200">Contact</p>
+                            <p className="text-sm font-semibold text-amber-200">{t('public.footer.contact')}</p>
                             <div className="mt-4 space-y-3 text-sm text-stone-400">
                                 <p className="flex items-start gap-2">
                                     <MapPin size={19} className="mt-0.5 shrink-0 text-amber-300" />
@@ -113,7 +113,7 @@ export default function Footer() {
                                 className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-amber-400/30 bg-amber-500/10 text-sm font-semibold text-amber-200 transition hover:bg-amber-500/20"
                             >
                                 <MessageCircle size={18} />
-                                WhatsApp Consultation
+                                {t('public.nav.whatsapp_consultation')}
                             </a>
                         </div>
                     </div>
@@ -121,7 +121,7 @@ export default function Footer() {
 
                 <div className="mt-10 border-t border-amber-500/15 pt-6">
                     <p className="text-sm text-stone-500">
-                        © 2026 {siteSettings.company_name || "Al Barakah Real Estate"}. All rights reserved.
+                        © 2026 {siteSettings.company_name || "Al Barakah Real Estate"}. {t('public.footer.rights')}
                     </p>
                 </div>
             </div>

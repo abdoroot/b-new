@@ -2,6 +2,7 @@ import AdminLayout from '@/Layouts/AdminLayout';
 import { Link, router } from '@inertiajs/react';
 import { Edit, Trash2, Plus, Search, Star, Clock } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { t } from '@/lib/translations';
 
 export default function Index({ opportunities, filters, areas }) {
     const [search, setSearch] = useState(filters.search || '');
@@ -29,7 +30,7 @@ export default function Index({ opportunities, filters, areas }) {
     }, [search, status, featured, areaId]);
 
     const handleDelete = (id) => {
-        if (confirm('Are you sure you want to delete this opportunity?')) {
+        if (confirm(t('admin.opportunities.delete_confirm'))) {
             router.delete(route('admin.opportunities.destroy', id));
         }
     };
@@ -48,15 +49,15 @@ export default function Index({ opportunities, filters, areas }) {
             <div className="space-y-6">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
-                        <h1 className="text-2xl font-bold text-stone-900 tracking-tight">Land Opportunities</h1>
-                        <p className="text-sm text-stone-500 mt-1">Manage curated Sharjah land opportunities.</p>
+                        <h1 className="text-2xl font-bold text-stone-900 tracking-tight">{t('admin.opportunities.title')}</h1>
+                        <p className="text-sm text-stone-500 mt-1">{t('admin.opportunities.description')}</p>
                     </div>
                     <Link
                         href={route('admin.opportunities.create')}
                         className="inline-flex items-center justify-center gap-2 rounded-xl bg-amber-500 px-5 py-2.5 text-sm font-semibold text-neutral-950 transition hover:bg-amber-400"
                     >
                         <Plus size={18} />
-                        Add Opportunity
+                        {t('forms.actions.add_opportunity')}
                     </Link>
                 </div>
 
@@ -66,7 +67,7 @@ export default function Index({ opportunities, filters, areas }) {
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" size={18} />
                             <input
                                 type="text"
-                                placeholder="Search by title..."
+                                placeholder={t('admin.opportunities.search_placeholder')}
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 className="w-full pl-10 pr-4 py-2 rounded-xl border-stone-200 focus:border-amber-500 focus:ring-amber-500 text-sm"
@@ -78,10 +79,10 @@ export default function Index({ opportunities, filters, areas }) {
                             onChange={(e) => setStatus(e.target.value)}
                             className="w-full py-2 rounded-xl border-stone-200 focus:border-amber-500 focus:ring-amber-500 text-sm"
                         >
-                            <option value="">All Statuses</option>
-                            <option value="draft">Draft</option>
-                            <option value="published">Published</option>
-                            <option value="archived">Archived</option>
+                            <option value="">{t('forms.options.all_statuses')}</option>
+                            <option value="draft">{t('forms.options.draft')}</option>
+                            <option value="published">{t('forms.options.published')}</option>
+                            <option value="archived">{t('forms.options.archived')}</option>
                         </select>
 
                         <select
@@ -89,9 +90,9 @@ export default function Index({ opportunities, filters, areas }) {
                             onChange={(e) => setFeatured(e.target.value)}
                             className="w-full py-2 rounded-xl border-stone-200 focus:border-amber-500 focus:ring-amber-500 text-sm"
                         >
-                            <option value="">All Featured</option>
-                            <option value="1">Featured Only</option>
-                            <option value="0">Regular Only</option>
+                            <option value="">{t('forms.options.all_featured')}</option>
+                            <option value="1">{t('forms.options.featured_only')}</option>
+                            <option value="0">{t('forms.options.regular_only')}</option>
                         </select>
 
                         <select
@@ -99,7 +100,7 @@ export default function Index({ opportunities, filters, areas }) {
                             onChange={(e) => setAreaId(e.target.value)}
                             className="w-full py-2 rounded-xl border-stone-200 focus:border-amber-500 focus:ring-amber-500 text-sm"
                         >
-                            <option value="">All Areas</option>
+                            <option value="">{t('forms.options.all_areas')}</option>
                             {areas.map((area) => (
                                 <option key={area.id} value={area.id}>{area.name_en}</option>
                             ))}
@@ -112,12 +113,12 @@ export default function Index({ opportunities, filters, areas }) {
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-stone-50 border-b border-stone-200">
-                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider">Title / Area</th>
-                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider">Land Use / Ownership</th>
-                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider text-center">Featured</th>
-                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider">Status</th>
-                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider">Published</th>
-                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider text-right">Actions</th>
+                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider">{t('admin.opportunities.table.title_area')}</th>
+                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider">{t('admin.opportunities.table.land_use_ownership')}</th>
+                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider text-center">{t('admin.opportunities.table.featured')}</th>
+                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider">{t('admin.opportunities.table.status')}</th>
+                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider">{t('admin.opportunities.table.published')}</th>
+                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider text-right">{t('admin.opportunities.table.actions')}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-stone-100">
@@ -140,13 +141,13 @@ export default function Index({ opportunities, filters, areas }) {
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${getStatusColor(opportunity.status)}`}>
-                                                {opportunity.status}
+                                                {t(`forms.options.${opportunity.status}`)}
                                             </span>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-stone-500">
                                             <div className="flex items-center gap-1.5">
                                                 <Clock size={14} />
-                                                {opportunity.published_at ? new Date(opportunity.published_at).toLocaleDateString() : 'N/A'}
+                                                {opportunity.published_at ? new Date(opportunity.published_at).toLocaleDateString() : t('admin.leads.na')}
                                             </div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-right">
@@ -170,7 +171,7 @@ export default function Index({ opportunities, filters, areas }) {
                                 {opportunities.data.length === 0 && (
                                     <tr>
                                         <td colSpan="6" className="px-6 py-12 text-center text-stone-500">
-                                            No opportunities found matching your criteria.
+                                            {t('admin.opportunities.empty')}
                                         </td>
                                     </tr>
                                 )}

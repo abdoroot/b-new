@@ -37,7 +37,7 @@ class PriceRangeController extends Controller
 
         PriceRange::create($validated);
 
-        return redirect()->route('admin.references.price-ranges.index')->with('success', 'Price Range created successfully.');
+        return redirect()->route('admin.references.price-ranges.index')->with('success', __('messages.price_range_created'));
     }
 
     public function edit(PriceRange $priceRange)
@@ -62,17 +62,17 @@ class PriceRangeController extends Controller
 
         $priceRange->update($validated);
 
-        return redirect()->route('admin.references.price-ranges.index')->with('success', 'Price Range updated successfully.');
+        return redirect()->route('admin.references.price-ranges.index')->with('success', __('messages.price_range_updated'));
     }
 
     public function destroy(PriceRange $priceRange)
     {
         if ($priceRange->landOpportunities()->exists() || $priceRange->leads()->exists()) {
-            return back()->with('error', 'Cannot delete price range as it is currently linked to land opportunities or leads.');
+            return back()->with('error', __('messages.price_range_delete_blocked'));
         }
 
         $priceRange->delete();
 
-        return redirect()->route('admin.references.price-ranges.index')->with('success', 'Price Range deleted successfully.');
+        return redirect()->route('admin.references.price-ranges.index')->with('success', __('messages.price_range_deleted'));
     }
 }

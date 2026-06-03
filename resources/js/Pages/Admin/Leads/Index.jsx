@@ -1,12 +1,13 @@
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Link, useForm } from '@inertiajs/react';
 import { Eye, Clock, Trash2 } from 'lucide-react';
+import { t } from '@/lib/translations';
 
 export default function Index({ leads }) {
     const { delete: destroy } = useForm();
 
     const handleDelete = (id) => {
-        if (confirm('Are you sure you want to delete this lead?')) {
+        if (confirm(t('admin.leads.delete_confirm'))) {
             destroy(route('admin.leads.destroy', id));
         }
     };
@@ -27,8 +28,8 @@ export default function Index({ leads }) {
             <div className="space-y-6">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-2xl font-bold text-stone-900 tracking-tight">Leads Management</h1>
-                        <p className="text-sm text-stone-500 mt-1">Manage incoming inquiries and consultation requests.</p>
+                        <h1 className="text-2xl font-bold text-stone-900 tracking-tight">{t('admin.leads.title')}</h1>
+                        <p className="text-sm text-stone-500 mt-1">{t('admin.leads.description')}</p>
                     </div>
                 </div>
 
@@ -37,12 +38,12 @@ export default function Index({ leads }) {
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-stone-50 border-b border-stone-200">
-                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider">Lead</th>
-                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider">Purpose / Area</th>
-                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider">Budget</th>
-                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider">Status</th>
-                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider">Created</th>
-                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider text-right">Action</th>
+                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider">{t('admin.leads.table.lead')}</th>
+                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider">{t('admin.leads.table.purpose_area')}</th>
+                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider">{t('admin.leads.table.budget')}</th>
+                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider">{t('admin.leads.table.status')}</th>
+                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider">{t('admin.leads.table.created')}</th>
+                                    <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase tracking-wider text-right">{t('admin.leads.table.action')}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-stone-100">
@@ -53,15 +54,15 @@ export default function Index({ leads }) {
                                             <div className="text-xs text-stone-500">{lead.phone}</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-stone-700">{lead.lead_purpose?.label_en || 'General Inquiry'}</div>
-                                            <div className="text-xs text-stone-500">{lead.preferred_area?.name_en || lead.preferred_area || 'Not specified'}</div>
+                                            <div className="text-sm text-stone-700">{lead.lead_purpose?.label_en || t('admin.leads.general_inquiry')}</div>
+                                            <div className="text-xs text-stone-500">{lead.preferred_area?.name_en || lead.preferred_area || t('admin.leads.not_specified')}</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-stone-600">
-                                            {lead.budget_range?.label_en || 'N/A'}
+                                            {lead.budget_range?.label_en || t('admin.leads.na')}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${getStatusColor(lead.status)}`}>
-                                                {lead.status}
+                                                {t(`admin.statuses.lead.${lead.status}`)}
                                             </span>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-stone-500 flex items-center gap-1.5">

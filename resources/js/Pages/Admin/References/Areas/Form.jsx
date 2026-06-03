@@ -1,14 +1,16 @@
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { ArrowLeft, Save } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Save } from 'lucide-react';
 import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import InputError from '@/Components/InputError';
 import Checkbox from '@/Components/Checkbox';
 import PrimaryButton from '@/Components/PrimaryButton';
+import { t, useLocale } from '@/lib/translations';
 
 export default function Form({ item, landUses }) {
     const isEditing = !!item;
+    const locale = useLocale();
     
     const { data, setData, post, patch, processing, errors } = useForm({
         name_en: item?.name_en || '',
@@ -31,7 +33,7 @@ export default function Form({ item, landUses }) {
 
     return (
         <AdminLayout>
-            <Head title={isEditing ? `Edit Area: ${item.name_en}` : 'Create Area'} />
+            <Head title={isEditing ? t('admin.references_pages.edit_area') : t('admin.references_pages.create_area')} />
             
             <div className="max-w-3xl mx-auto">
                 <div className="flex items-center gap-4 mb-8">
@@ -39,14 +41,14 @@ export default function Form({ item, landUses }) {
                         href={route('admin.references.areas.index')}
                         className="p-2 bg-white border border-stone-200 text-stone-500 rounded-xl hover:text-stone-900 transition shadow-sm"
                     >
-                        <ArrowLeft size={20} />
+                        {locale.direction === 'rtl' ? <ArrowRight size={20} /> : <ArrowLeft size={20} />}
                     </Link>
                     <div>
                         <h1 className="text-2xl font-bold text-stone-900">
-                            {isEditing ? 'Edit Area' : 'Create Area'}
+                            {isEditing ? t('admin.references_pages.edit_area') : t('admin.references_pages.create_area')}
                         </h1>
                         <p className="text-stone-500">
-                            {isEditing ? `Updating ${item.name_en}` : 'Add a new area to the system.'}
+                            {isEditing ? t('admin.references_pages.updating', { name: item.name_en }) : t('admin.references_pages.add_new_area')}
                         </p>
                     </div>
                 </div>
@@ -55,7 +57,7 @@ export default function Form({ item, landUses }) {
                     <div className="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <InputLabel htmlFor="name_en" value="Name (EN)" />
+                                <InputLabel htmlFor="name_en" value={t('forms.fields.name_english')} />
                                 <TextInput
                                     id="name_en"
                                     value={data.name_en}
@@ -66,7 +68,7 @@ export default function Form({ item, landUses }) {
                                 <InputError message={errors.name_en} />
                             </div>
                             <div className="space-y-2">
-                                <InputLabel htmlFor="name_ar" value="Name (AR)" />
+                                <InputLabel htmlFor="name_ar" value={t('forms.fields.name_arabic')} />
                                 <TextInput
                                     id="name_ar"
                                     value={data.name_ar}
@@ -80,7 +82,7 @@ export default function Form({ item, landUses }) {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <InputLabel htmlFor="slug" value="Slug" />
+                                <InputLabel htmlFor="slug" value={t('forms.fields.slug')} />
                                 <TextInput
                                     id="slug"
                                     value={data.slug}
@@ -91,7 +93,7 @@ export default function Form({ item, landUses }) {
                                 <InputError message={errors.slug} />
                             </div>
                             <div className="space-y-2">
-                                <InputLabel htmlFor="city" value="City" />
+                                <InputLabel htmlFor="city" value={t('forms.fields.city')} />
                                 <TextInput
                                     id="city"
                                     value={data.city}
@@ -104,14 +106,14 @@ export default function Form({ item, landUses }) {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <InputLabel htmlFor="default_land_use_id" value="Default Land Use" />
+                                <InputLabel htmlFor="default_land_use_id" value={t('forms.fields.default_land_use')} />
                                 <select
                                     id="default_land_use_id"
                                     value={data.default_land_use_id}
                                     onChange={(e) => setData('default_land_use_id', e.target.value)}
                                     className="w-full rounded-xl border-stone-200 text-stone-900 focus:border-amber-500 focus:ring-amber-500 shadow-sm transition"
                                 >
-                                    <option value="">Select a land use</option>
+                                    <option value="">{t('forms.options.select_land_use')}</option>
                                     {landUses.map((lu) => (
                                         <option key={lu.id} value={lu.id}>{lu.name_en}</option>
                                     ))}
@@ -119,7 +121,7 @@ export default function Form({ item, landUses }) {
                                 <InputError message={errors.default_land_use_id} />
                             </div>
                             <div className="space-y-2">
-                                <InputLabel htmlFor="sort_order" value="Sort Order" />
+                                <InputLabel htmlFor="sort_order" value={t('forms.fields.sort_order')} />
                                 <TextInput
                                     id="sort_order"
                                     type="number"
@@ -137,7 +139,7 @@ export default function Form({ item, landUses }) {
                                 checked={data.is_active}
                                 onChange={(e) => setData('is_active', e.target.checked)}
                             />
-                            <InputLabel htmlFor="is_active" value="Active" />
+                            <InputLabel htmlFor="is_active" value={t('admin.references_pages.active')} />
                             <InputError message={errors.is_active} />
                         </div>
                     </div>
@@ -147,14 +149,14 @@ export default function Form({ item, landUses }) {
                             href={route('admin.references.areas.index')}
                             className="text-sm font-medium text-stone-600 hover:text-stone-900 transition"
                         >
-                            Cancel
+                            {t('forms.actions.cancel')}
                         </Link>
                         <PrimaryButton
                             className="flex items-center gap-2"
                             disabled={processing}
                         >
                             <Save size={18} />
-                            {isEditing ? 'Update Area' : 'Save Area'}
+                            {isEditing ? t('forms.actions.update_area') : t('forms.actions.save_area')}
                         </PrimaryButton>
                     </div>
                 </form>

@@ -1,14 +1,16 @@
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { ArrowLeft, Save } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Save } from 'lucide-react';
 import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import InputError from '@/Components/InputError';
 import Checkbox from '@/Components/Checkbox';
 import PrimaryButton from '@/Components/PrimaryButton';
+import { t, useLocale } from '@/lib/translations';
 
 export default function Form({ item }) {
     const isEditing = !!item;
+    const locale = useLocale();
     
     const { data, setData, post, patch, processing, errors } = useForm({
         name_en: item?.name_en || '',
@@ -29,7 +31,7 @@ export default function Form({ item }) {
 
     return (
         <AdminLayout>
-            <Head title={isEditing ? `Edit Land Use: ${item.name_en}` : 'Create Land Use'} />
+            <Head title={isEditing ? t('admin.references_pages.edit_land_use') : t('admin.references_pages.create_land_use')} />
             
             <div className="max-w-3xl mx-auto">
                 <div className="flex items-center gap-4 mb-8">
@@ -37,14 +39,14 @@ export default function Form({ item }) {
                         href={route('admin.references.land-uses.index')}
                         className="p-2 bg-white border border-stone-200 text-stone-500 rounded-xl hover:text-stone-900 transition shadow-sm"
                     >
-                        <ArrowLeft size={20} />
+                        {locale.direction === 'rtl' ? <ArrowRight size={20} /> : <ArrowLeft size={20} />}
                     </Link>
                     <div>
                         <h1 className="text-2xl font-bold text-stone-900">
-                            {isEditing ? 'Edit Land Use' : 'Create Land Use'}
+                            {isEditing ? t('admin.references_pages.edit_land_use') : t('admin.references_pages.create_land_use')}
                         </h1>
                         <p className="text-stone-500">
-                            {isEditing ? `Updating ${item.name_en}` : 'Add a new land use category.'}
+                            {isEditing ? t('admin.references_pages.updating', { name: item.name_en }) : t('admin.references_pages.add_new_land_use')}
                         </p>
                     </div>
                 </div>
@@ -53,7 +55,7 @@ export default function Form({ item }) {
                     <div className="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <InputLabel htmlFor="name_en" value="Name (EN)" />
+                                <InputLabel htmlFor="name_en" value={t('forms.fields.name_english')} />
                                 <TextInput
                                     id="name_en"
                                     value={data.name_en}
@@ -64,7 +66,7 @@ export default function Form({ item }) {
                                 <InputError message={errors.name_en} />
                             </div>
                             <div className="space-y-2">
-                                <InputLabel htmlFor="name_ar" value="Name (AR)" />
+                                <InputLabel htmlFor="name_ar" value={t('forms.fields.name_arabic')} />
                                 <TextInput
                                     id="name_ar"
                                     value={data.name_ar}
@@ -78,7 +80,7 @@ export default function Form({ item }) {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <InputLabel htmlFor="slug" value="Slug" />
+                                <InputLabel htmlFor="slug" value={t('forms.fields.slug')} />
                                 <TextInput
                                     id="slug"
                                     value={data.slug}
@@ -89,7 +91,7 @@ export default function Form({ item }) {
                                 <InputError message={errors.slug} />
                             </div>
                             <div className="space-y-2">
-                                <InputLabel htmlFor="sort_order" value="Sort Order" />
+                                <InputLabel htmlFor="sort_order" value={t('forms.fields.sort_order')} />
                                 <TextInput
                                     id="sort_order"
                                     type="number"
@@ -107,7 +109,7 @@ export default function Form({ item }) {
                                 checked={data.is_active}
                                 onChange={(e) => setData('is_active', e.target.checked)}
                             />
-                            <InputLabel htmlFor="is_active" value="Active" />
+                            <InputLabel htmlFor="is_active" value={t('admin.references_pages.active')} />
                             <InputError message={errors.is_active} />
                         </div>
                     </div>
@@ -117,14 +119,14 @@ export default function Form({ item }) {
                             href={route('admin.references.land-uses.index')}
                             className="text-sm font-medium text-stone-600 hover:text-stone-900 transition"
                         >
-                            Cancel
+                            {t('forms.actions.cancel')}
                         </Link>
                         <PrimaryButton
                             className="flex items-center gap-2"
                             disabled={processing}
                         >
                             <Save size={18} />
-                            {isEditing ? 'Update Land Use' : 'Save Land Use'}
+                            {isEditing ? t('forms.actions.update_land_use') : t('forms.actions.save_land_use')}
                         </PrimaryButton>
                     </div>
                 </form>

@@ -1,10 +1,12 @@
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { ArrowLeft, Mail, Phone, MapPin, Calendar, Tag, MessageSquare, Clock, Trash2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Mail, Phone, MapPin, Tag, MessageSquare, Clock, Trash2 } from 'lucide-react';
 import PrimaryButton from '@/Components/PrimaryButton';
 import DangerButton from '@/Components/DangerButton';
+import { t, useLocale } from '@/lib/translations';
 
 export default function Show({ lead, statuses }) {
+    const locale = useLocale();
     const { data, setData, patch, processing, delete: destroy } = useForm({
         status: lead.status,
     });
@@ -18,7 +20,7 @@ export default function Show({ lead, statuses }) {
     };
 
     const handleDelete = () => {
-        if (confirm('Are you sure you want to delete this lead?')) {
+        if (confirm(t('admin.leads.delete_confirm'))) {
             destroy(route('admin.leads.destroy', lead.id));
         }
     };
@@ -36,7 +38,7 @@ export default function Show({ lead, statuses }) {
 
     return (
         <AdminLayout>
-            <Head title={`Lead: ${lead.name}`} />
+            <Head title={`${t('admin.leads.details_title')}: ${lead.name}`} />
             
             <div className="max-w-5xl mx-auto">
                 <div className="flex items-center gap-4 mb-8">
@@ -44,11 +46,11 @@ export default function Show({ lead, statuses }) {
                         href="/admin/leads"
                         className="p-2 bg-white border border-stone-200 text-stone-500 rounded-xl hover:text-stone-900 transition shadow-sm"
                     >
-                        <ArrowLeft size={20} />
+                        {locale.direction === 'rtl' ? <ArrowRight size={20} /> : <ArrowLeft size={20} />}
                     </Link>
                     <div>
-                        <h1 className="text-2xl font-bold text-stone-900">Lead Details</h1>
-                        <p className="text-stone-500">Review and manage inquiry from {lead.name}</p>
+                        <h1 className="text-2xl font-bold text-stone-900">{t('admin.leads.details_title')}</h1>
+                        <p className="text-stone-500">{t('admin.leads.details_description', { name: lead.name })}</p>
                     </div>
                     
                     <div className="ml-auto flex items-center gap-3">
@@ -58,8 +60,8 @@ export default function Show({ lead, statuses }) {
                             disabled={processing}
                             className={`rounded-xl border-stone-200 text-sm font-semibold focus:border-amber-500 focus:ring-amber-500 shadow-sm transition ${getStatusColor(data.status)}`}
                         >
-                            {Object.entries(statuses).map(([key, label]) => (
-                                <option key={key} value={key} className="bg-white text-stone-900">{label}</option>
+                            {statuses.map((key) => (
+                                <option key={key} value={key} className="bg-white text-stone-900">{t(`admin.statuses.lead.${key}`)}</option>
                             ))}
                         </select>
 
@@ -67,7 +69,7 @@ export default function Show({ lead, statuses }) {
                             onClick={handleDelete}
                             disabled={processing}
                             className="p-2.5 bg-white border border-stone-200 text-stone-400 rounded-xl hover:text-red-600 hover:border-red-100 hover:bg-red-50 transition shadow-sm disabled:opacity-50"
-                            title="Delete Lead"
+                            title={t('admin.leads.delete_title')}
                         >
                             <Trash2 size={18} />
                         </button>
@@ -80,34 +82,34 @@ export default function Show({ lead, statuses }) {
                         <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-stone-200">
                             <h2 className="text-lg font-semibold text-stone-900 mb-6 flex items-center gap-2">
                                 <MessageSquare size={20} className="text-amber-600" />
-                                Inquiry Message
+                                {t('admin.leads.message')}
                             </h2>
                             <div className="bg-stone-50 p-6 rounded-xl border border-stone-100 italic text-stone-700 whitespace-pre-wrap leading-relaxed">
-                                {lead.message || "No additional message provided."}
+                                {lead.message || t('admin.leads.message_empty')}
                             </div>
                         </div>
 
                         <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-stone-200">
                             <h2 className="text-lg font-semibold text-stone-900 mb-6 flex items-center gap-2">
                                 <Tag size={20} className="text-amber-600" />
-                                Requirements
+                                {t('admin.leads.requirements')}
                             </h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 <div className="space-y-1">
-                                    <p className="text-xs font-semibold text-stone-400 uppercase tracking-wider">Purpose</p>
-                                    <p className="text-stone-900 font-medium">{lead.lead_purpose?.label_en || 'General Inquiry'}</p>
+                                    <p className="text-xs font-semibold text-stone-400 uppercase tracking-wider">{t('admin.leads.purpose')}</p>
+                                    <p className="text-stone-900 font-medium">{lead.lead_purpose?.label_en || t('admin.leads.general_inquiry')}</p>
                                 </div>
                                 <div className="space-y-1">
-                                    <p className="text-xs font-semibold text-stone-400 uppercase tracking-wider">Preferred Area</p>
-                                    <p className="text-stone-900 font-medium">{lead.preferred_area?.name_en || 'Anywhere'}</p>
+                                    <p className="text-xs font-semibold text-stone-400 uppercase tracking-wider">{t('admin.leads.preferred_area')}</p>
+                                    <p className="text-stone-900 font-medium">{lead.preferred_area?.name_en || t('admin.leads.anywhere')}</p>
                                 </div>
                                 <div className="space-y-1">
-                                    <p className="text-xs font-semibold text-stone-400 uppercase tracking-wider">Budget Range</p>
-                                    <p className="text-stone-900 font-medium">{lead.budget_range?.label_en || 'Not specified'}</p>
+                                    <p className="text-xs font-semibold text-stone-400 uppercase tracking-wider">{t('admin.leads.budget_range')}</p>
+                                    <p className="text-stone-900 font-medium">{lead.budget_range?.label_en || t('admin.leads.not_specified')}</p>
                                 </div>
                                 <div className="space-y-1">
-                                    <p className="text-xs font-semibold text-stone-400 uppercase tracking-wider">Source</p>
-                                    <p className="text-stone-900 font-medium capitalize">{lead.source?.replace(/_/g, ' ') || 'Website'}</p>
+                                    <p className="text-xs font-semibold text-stone-400 uppercase tracking-wider">{t('admin.leads.source')}</p>
+                                    <p className="text-stone-900 font-medium capitalize">{lead.source?.replace(/_/g, ' ') || t('admin.leads.website')}</p>
                                 </div>
                             </div>
                         </div>
@@ -116,14 +118,14 @@ export default function Show({ lead, statuses }) {
                     {/* Sidebar Info */}
                     <div className="space-y-8">
                         <div className="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
-                            <h2 className="text-lg font-semibold text-stone-900 mb-6">Contact Info</h2>
+                            <h2 className="text-lg font-semibold text-stone-900 mb-6">{t('admin.leads.contact_info')}</h2>
                             <div className="space-y-4">
                                 <div className="flex items-center gap-3 text-stone-600">
                                     <div className="p-2 bg-stone-100 rounded-lg">
                                         <Phone size={18} />
                                     </div>
                                     <div>
-                                        <p className="text-xs text-stone-400 font-medium">Phone</p>
+                                        <p className="text-xs text-stone-400 font-medium">{t('admin.leads.phone')}</p>
                                         <a href={`tel:${lead.phone}`} className="text-sm font-semibold text-stone-900 hover:text-amber-600 transition">
                                             {lead.phone}
                                         </a>
@@ -135,7 +137,7 @@ export default function Show({ lead, statuses }) {
                                             <Mail size={18} />
                                         </div>
                                         <div>
-                                            <p className="text-xs text-stone-400 font-medium">Email</p>
+                                            <p className="text-xs text-stone-400 font-medium">{t('admin.leads.email')}</p>
                                             <a href={`mailto:${lead.email}`} className="text-sm font-semibold text-stone-900 hover:text-amber-600 transition">
                                                 {lead.email}
                                             </a>
@@ -147,7 +149,7 @@ export default function Show({ lead, statuses }) {
                                         <Clock size={18} />
                                     </div>
                                     <div>
-                                        <p className="text-xs text-stone-400 font-medium">Received At</p>
+                                        <p className="text-xs text-stone-400 font-medium">{t('admin.leads.received_at')}</p>
                                         <p className="text-sm font-semibold text-stone-900">
                                             {new Date(lead.created_at).toLocaleString()}
                                         </p>
@@ -159,21 +161,21 @@ export default function Show({ lead, statuses }) {
                         {/* HubSpot Sync Info */}
                         <div className="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
                             <div className="flex items-center justify-between mb-6">
-                                <h2 className="text-lg font-semibold text-stone-900">HubSpot Sync</h2>
+                                <h2 className="text-lg font-semibold text-stone-900">{t('admin.leads.hubspot_sync')}</h2>
                                 <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${
                                     lead.hubspot_sync_status === 'synced' ? 'bg-emerald-100 text-emerald-700' :
                                     lead.hubspot_sync_status === 'failed' ? 'bg-red-100 text-red-700' :
                                     lead.hubspot_sync_status === 'syncing' ? 'bg-blue-100 text-blue-700' :
                                     'bg-stone-100 text-stone-700'
                                 }`}>
-                                    {lead.hubspot_sync_status || 'disabled'}
+                                    {t(`admin.statuses.hubspot.${lead.hubspot_sync_status || 'disabled'}`)}
                                 </span>
                             </div>
                             
                             <div className="space-y-4">
                                 {lead.hubspot_contact_id && (
                                     <div>
-                                        <p className="text-xs text-stone-400 font-medium uppercase tracking-wider">Contact ID</p>
+                                        <p className="text-xs text-stone-400 font-medium uppercase tracking-wider">{t('admin.leads.contact_id')}</p>
                                         <p className="text-sm font-mono font-medium text-stone-900 truncate" title={lead.hubspot_contact_id}>
                                             {lead.hubspot_contact_id}
                                         </p>
@@ -182,7 +184,7 @@ export default function Show({ lead, statuses }) {
                                 
                                 {lead.hubspot_synced_at && (
                                     <div>
-                                        <p className="text-xs text-stone-400 font-medium uppercase tracking-wider">Last Synced</p>
+                                        <p className="text-xs text-stone-400 font-medium uppercase tracking-wider">{t('admin.leads.last_synced')}</p>
                                         <p className="text-sm font-medium text-stone-900">
                                             {new Date(lead.hubspot_synced_at).toLocaleString()}
                                         </p>
@@ -191,7 +193,7 @@ export default function Show({ lead, statuses }) {
 
                                 {lead.hubspot_sync_error && (
                                     <div className="p-3 bg-red-50 border border-red-100 rounded-xl">
-                                        <p className="text-xs text-red-500 font-semibold mb-1 uppercase tracking-wider">Error</p>
+                                        <p className="text-xs text-red-500 font-semibold mb-1 uppercase tracking-wider">{t('admin.leads.error')}</p>
                                         <p className="text-xs text-red-700 leading-relaxed italic">
                                             {lead.hubspot_sync_error}
                                         </p>
@@ -200,7 +202,7 @@ export default function Show({ lead, statuses }) {
 
                                 {!lead.hubspot_contact_id && lead.hubspot_sync_status !== 'failed' && (
                                     <p className="text-xs text-stone-500 italic">
-                                        {lead.hubspot_sync_status === 'disabled' ? 'HubSpot integration is currently disabled.' : 'Sync will be processed in the background.'}
+                                        {lead.hubspot_sync_status === 'disabled' ? t('admin.leads.hubspot_disabled') : t('admin.leads.hubspot_syncing')}
                                     </p>
                                 )}
                             </div>
@@ -210,14 +212,14 @@ export default function Show({ lead, statuses }) {
                             <div className="bg-amber-50 p-6 rounded-2xl shadow-sm border border-amber-100">
                                 <h2 className="text-lg font-semibold text-stone-900 mb-4 flex items-center gap-2">
                                     <MapPin size={20} className="text-amber-700" />
-                                    Specific Opportunity
+                                    {t('admin.leads.specific_opportunity')}
                                 </h2>
                                 <p className="text-sm text-stone-700 mb-4">{lead.land_opportunity.title_en}</p>
                                 <Link
                                     href={`/admin/opportunities/${lead.land_opportunity_id}/edit`}
                                     className="text-xs font-bold text-amber-700 uppercase tracking-widest hover:text-amber-800 transition"
                                 >
-                                    View Opportunity &rarr;
+                                    {t('admin.leads.view_opportunity')} &rarr;
                                 </Link>
                             </div>
                         )}

@@ -1,19 +1,20 @@
 import { Link, usePage } from '@inertiajs/react';
 import { Menu, MessageCircle, X } from 'lucide-react';
 import { useState } from 'react';
-import PrimaryButton from './PrimaryButton';
+import { t, useLocale } from '../lib/translations';
 
 const links = [
-    { label: 'Home', href: '/' },
-    { label: 'Land Opportunities', href: '/land-opportunities' },
-    { label: 'Land Advisory', href: '/advisory' },
-    { label: 'Contact', href: '/contact' },
+    { key: 'public.nav.home', href: '/' },
+    { key: 'public.nav.land_opportunities', href: '/land-opportunities' },
+    { key: 'public.nav.land_advisory', href: '/advisory' },
+    { key: 'public.nav.contact', href: '/contact' },
 ];
 
 export default function Header() {
     const { url, props } = usePage();
     const { siteSettings = {} } = props;
     const [menuOpen, setMenuOpen] = useState(false);
+    const locale = useLocale();
 
     const whatsappUrl = siteSettings.contact_whatsapp_url || "https://wa.me/971XXXXXXXXX";
 
@@ -50,13 +51,33 @@ export default function Header() {
                                         : 'text-stone-400 hover:text-stone-100'
                                     }`}
                             >
-                                {link.label}
+                                {t(link.key)}
                             </Link>
                         );
                     })}
                 </nav>
 
-                <div className="hidden lg:flex">
+                <div className="hidden lg:flex lg:items-center lg:gap-3">
+                    <div className="inline-flex rounded-xl border border-amber-400/20 bg-neutral-900 p-1">
+                        <a
+                            href="/locale/en"
+                            className={`rounded-lg px-3 py-2 text-xs font-semibold transition ${
+                                locale.current === 'en' ? 'bg-amber-500 text-neutral-950' : 'text-stone-300 hover:text-white'
+                            }`}
+                            aria-label={t('public.nav.switch_to_english')}
+                        >
+                            {t('public.nav.english')}
+                        </a>
+                        <a
+                            href="/locale/ar"
+                            className={`rounded-lg px-3 py-2 text-xs font-semibold transition ${
+                                locale.current === 'ar' ? 'bg-amber-500 text-neutral-950' : 'text-stone-300 hover:text-white'
+                            }`}
+                            aria-label={t('public.nav.switch_to_arabic')}
+                        >
+                            {t('public.nav.arabic')}
+                        </a>
+                    </div>
                     <a 
                         href={whatsappUrl}
                         target="_blank"
@@ -64,13 +85,13 @@ export default function Header() {
                         className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-amber-400/30 bg-amber-500/10 px-5 text-sm font-semibold text-amber-200 transition hover:bg-amber-500/20"
                     >
                         <MessageCircle size={18} />
-                        WhatsApp Consultation
+                        {t('public.nav.whatsapp_consultation')}
                     </a>
                 </div>
 
                 <button
                     type="button"
-                    aria-label="Toggle menu"
+                    aria-label={t('public.nav.toggle_menu')}
                     aria-expanded={menuOpen}
                     onClick={() => setMenuOpen((v) => !v)}
                     className="flex h-11 w-11 items-center justify-center rounded-xl border border-amber-500/15 bg-neutral-900 text-stone-200 transition hover:border-amber-400/30 hover:text-amber-200 lg:hidden"
@@ -95,10 +116,28 @@ export default function Header() {
                                             : 'text-stone-300 hover:bg-neutral-900 hover:text-stone-100'
                                         }`}
                                 >
-                                    {link.label}
+                                    {t(link.key)}
                                 </Link>
                             );
                         })}
+                        <div className="mt-2 flex gap-2 px-3 pt-2">
+                            <a
+                                href="/locale/en"
+                                className={`rounded-lg px-3 py-2 text-sm font-semibold transition ${
+                                    locale.current === 'en' ? 'bg-amber-500 text-neutral-950' : 'text-stone-300 hover:bg-neutral-900 hover:text-stone-100'
+                                }`}
+                            >
+                                {t('public.nav.english')}
+                            </a>
+                            <a
+                                href="/locale/ar"
+                                className={`rounded-lg px-3 py-2 text-sm font-semibold transition ${
+                                    locale.current === 'ar' ? 'bg-amber-500 text-neutral-950' : 'text-stone-300 hover:bg-neutral-900 hover:text-stone-100'
+                                }`}
+                            >
+                                {t('public.nav.arabic')}
+                            </a>
+                        </div>
                     </nav>
                 </div>
             ) : null}

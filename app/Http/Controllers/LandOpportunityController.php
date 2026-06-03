@@ -8,6 +8,7 @@ use App\Models\LandUse;
 use App\Models\OwnershipType;
 use App\Models\PriceRange;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Inertia\Inertia;
 
 class LandOpportunityController extends Controller
@@ -23,6 +24,8 @@ class LandOpportunityController extends Controller
      */
     public function index(Request $request)
     {
+        $locale = App::currentLocale();
+
         $query = LandOpportunity::query()
             ->where('status', LandOpportunity::STATUS_PUBLISHED)
             ->with(['area', 'landUse', 'ownershipType', 'priceRange']);
@@ -58,20 +61,48 @@ class LandOpportunityController extends Controller
             ->orderBy('published_at', 'desc')
             ->get()
             ->map(fn (LandOpportunity $opportunity) => [
-                'title' => $opportunity->title_en,
+                'title' => $locale === 'ar' ? ($opportunity->title_ar ?: $opportunity->title_en) : $opportunity->title_en,
                 'slug' => $opportunity->slug,
-                'area_name' => $opportunity->area?->name_en,
-                'land_use_name' => $opportunity->landUse?->name_en,
-                'ownership_label' => $opportunity->ownershipType?->name_en,
+                'area_name' => $locale === 'ar'
+                    ? ($opportunity->area?->name_ar ?: $opportunity->area?->name_en)
+                    : $opportunity->area?->name_en,
+                'land_use_name' => $locale === 'ar'
+                    ? ($opportunity->landUse?->name_ar ?: $opportunity->landUse?->name_en)
+                    : $opportunity->landUse?->name_en,
+                'ownership_label' => $locale === 'ar'
+                    ? ($opportunity->ownershipType?->name_ar ?: $opportunity->ownershipType?->name_en)
+                    : $opportunity->ownershipType?->name_en,
                 'ownership_color' => $opportunity->ownershipType?->color,
-                'price_range_label' => $opportunity->priceRange?->label_en,
+                'price_range_label' => $locale === 'ar'
+                    ? ($opportunity->priceRange?->label_ar ?: $opportunity->priceRange?->label_en)
+                    : $opportunity->priceRange?->label_en,
             ]);
 
         $filterOptions = [
-            'areas' => Area::where('is_active', true)->orderBy('sort_order')->get(['id', 'name_en', 'slug']),
-            'price_ranges' => PriceRange::where('is_active', true)->orderBy('sort_order')->get(['id', 'label_en', 'slug']),
-            'ownership_types' => OwnershipType::where('is_active', true)->orderBy('sort_order')->get(['id', 'name_en', 'slug']),
-            'land_uses' => LandUse::where('is_active', true)->orderBy('sort_order')->get(['id', 'name_en', 'slug']),
+            'areas' => Area::where('is_active', true)->orderBy('sort_order')->get(['id', 'name_en', 'name_ar', 'slug'])
+                ->map(fn (Area $area) => [
+                    'id' => $area->id,
+                    'slug' => $area->slug,
+                    'label' => $locale === 'ar' ? ($area->name_ar ?: $area->name_en) : $area->name_en,
+                ]),
+            'price_ranges' => PriceRange::where('is_active', true)->orderBy('sort_order')->get(['id', 'label_en', 'label_ar', 'slug'])
+                ->map(fn (PriceRange $range) => [
+                    'id' => $range->id,
+                    'slug' => $range->slug,
+                    'label' => $locale === 'ar' ? ($range->label_ar ?: $range->label_en) : $range->label_en,
+                ]),
+            'ownership_types' => OwnershipType::where('is_active', true)->orderBy('sort_order')->get(['id', 'name_en', 'name_ar', 'slug'])
+                ->map(fn (OwnershipType $type) => [
+                    'id' => $type->id,
+                    'slug' => $type->slug,
+                    'label' => $locale === 'ar' ? ($type->name_ar ?: $type->name_en) : $type->name_en,
+                ]),
+            'land_uses' => LandUse::where('is_active', true)->orderBy('sort_order')->get(['id', 'name_en', 'name_ar', 'slug'])
+                ->map(fn (LandUse $landUse) => [
+                    'id' => $landUse->id,
+                    'slug' => $landUse->slug,
+                    'label' => $locale === 'ar' ? ($landUse->name_ar ?: $landUse->name_en) : $landUse->name_en,
+                ]),
         ];
 
         return Inertia::render('LandOpportunities/Index', [
@@ -86,6 +117,8 @@ class LandOpportunityController extends Controller
      */
     public function show(string $slug)
     {
+        $locale = App::currentLocale();
+
         $opportunity = LandOpportunity::query()
             ->where('slug', $slug)
             ->where('status', LandOpportunity::STATUS_PUBLISHED)
@@ -94,17 +127,31 @@ class LandOpportunityController extends Controller
 
         return Inertia::render('LandOpportunities/Show', [
             'opportunity' => [
-                'title' => $opportunity->title_en,
+                'title' => $locale === 'ar' ? ($opportunity->title_ar ?: $opportunity->title_en) : $opportunity->title_en,
                 'slug' => $opportunity->slug,
-                'area_name' => $opportunity->area?->name_en,
-                'location' => $opportunity->location_en,
-                'land_use_name' => $opportunity->landUse?->name_en,
-                'ownership_label' => $opportunity->ownershipType?->name_en,
+                'area_name' => $locale === 'ar'
+                    ? ($opportunity->area?->name_ar ?: $opportunity->area?->name_en)
+                    : $opportunity->area?->name_en,
+                'location' => $locale === 'ar' ? ($opportunity->location_ar ?: $opportunity->location_en) : $opportunity->location_en,
+                'land_use_name' => $locale === 'ar'
+                    ? ($opportunity->landUse?->name_ar ?: $opportunity->landUse?->name_en)
+                    : $opportunity->landUse?->name_en,
+                'ownership_label' => $locale === 'ar'
+                    ? ($opportunity->ownershipType?->name_ar ?: $opportunity->ownershipType?->name_en)
+                    : $opportunity->ownershipType?->name_en,
                 'ownership_color' => $opportunity->ownershipType?->color,
-                'price_range_label' => $opportunity->priceRange?->label_en,
-                'short_description' => $opportunity->short_description_en,
-                'investment_insight' => $opportunity->investment_insight_en,
-                'area_growth_trigger' => $opportunity->area_growth_trigger_en,
+                'price_range_label' => $locale === 'ar'
+                    ? ($opportunity->priceRange?->label_ar ?: $opportunity->priceRange?->label_en)
+                    : $opportunity->priceRange?->label_en,
+                'short_description' => $locale === 'ar'
+                    ? ($opportunity->short_description_ar ?: $opportunity->short_description_en)
+                    : $opportunity->short_description_en,
+                'investment_insight' => $locale === 'ar'
+                    ? ($opportunity->investment_insight_ar ?: $opportunity->investment_insight_en)
+                    : $opportunity->investment_insight_en,
+                'area_growth_trigger' => $locale === 'ar'
+                    ? ($opportunity->area_growth_trigger_ar ?: $opportunity->area_growth_trigger_en)
+                    : $opportunity->area_growth_trigger_en,
             ]
         ]);
     }

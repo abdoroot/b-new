@@ -41,6 +41,6 @@ class SiteSettingController extends Controller
 
         app(SiteSettingsService::class)->clearCache();
 
-        return back()->with('success', 'Site settings updated successfully.');
+        return back()->with('success', __('messages.site_settings_updated'));
     }
 }

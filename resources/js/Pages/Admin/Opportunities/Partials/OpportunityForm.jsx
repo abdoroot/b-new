@@ -3,6 +3,7 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { useForm } from '@inertiajs/react';
+import { t } from '@/lib/translations';
 
 export default function OpportunityForm({ opportunity, areas, landUses, ownershipTypes, priceRanges, isEditing = false }) {
     const { data, setData, post, patch, processing, errors } = useForm({
@@ -35,10 +36,10 @@ export default function OpportunityForm({ opportunity, areas, landUses, ownershi
         <form onSubmit={submit} className="space-y-8">
             <div className="grid gap-6 lg:grid-cols-2">
                 <div className="space-y-6 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
-                    <h2 className="text-lg font-semibold text-stone-900">Basic Information</h2>
+                    <h2 className="text-lg font-semibold text-stone-900">{t('admin.opportunities.basic_information')}</h2>
                     
                     <div>
-                        <InputLabel htmlFor="title_en" value="Title (English)" />
+                        <InputLabel htmlFor="title_en" value={t('forms.fields.title_english')} />
                         <TextInput
                             id="title_en"
                             value={data.title_en}
@@ -50,7 +51,7 @@ export default function OpportunityForm({ opportunity, areas, landUses, ownershi
                     </div>
 
                     <div>
-                        <InputLabel htmlFor="slug" value="Slug" />
+                        <InputLabel htmlFor="slug" value={t('forms.fields.slug')} />
                         <TextInput
                             id="slug"
                             value={data.slug}
@@ -63,14 +64,14 @@ export default function OpportunityForm({ opportunity, areas, landUses, ownershi
 
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <InputLabel htmlFor="area_id" value="Area" />
+                            <InputLabel htmlFor="area_id" value={t('forms.fields.area')} />
                             <select
                                 id="area_id"
                                 value={data.area_id}
                                 className="mt-1 block w-full rounded-xl border-stone-200 focus:border-amber-500 focus:ring-amber-500 text-sm"
                                 onChange={(e) => setData('area_id', e.target.value)}
                             >
-                                <option value="">Select Area</option>
+                                <option value="">{t('forms.options.select_area')}</option>
                                 {areas.map((area) => (
                                     <option key={area.id} value={area.id}>{area.name_en}</option>
                                 ))}
@@ -79,14 +80,14 @@ export default function OpportunityForm({ opportunity, areas, landUses, ownershi
                         </div>
 
                         <div>
-                            <InputLabel htmlFor="land_use_id" value="Land Use" />
+                            <InputLabel htmlFor="land_use_id" value={t('forms.fields.land_use')} />
                             <select
                                 id="land_use_id"
                                 value={data.land_use_id}
                                 className="mt-1 block w-full rounded-xl border-stone-200 focus:border-amber-500 focus:ring-amber-500 text-sm"
                                 onChange={(e) => setData('land_use_id', e.target.value)}
                             >
-                                <option value="">Select Use</option>
+                                <option value="">{t('forms.options.select_use')}</option>
                                 {landUses.map((use) => (
                                     <option key={use.id} value={use.id}>{use.name_en}</option>
                                 ))}
@@ -97,14 +98,14 @@ export default function OpportunityForm({ opportunity, areas, landUses, ownershi
 
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <InputLabel htmlFor="ownership_type_id" value="Ownership Type" />
+                            <InputLabel htmlFor="ownership_type_id" value={t('forms.fields.ownership_type')} />
                             <select
                                 id="ownership_type_id"
                                 value={data.ownership_type_id}
                                 className="mt-1 block w-full rounded-xl border-stone-200 focus:border-amber-500 focus:ring-amber-500 text-sm"
                                 onChange={(e) => setData('ownership_type_id', e.target.value)}
                             >
-                                <option value="">Select Type</option>
+                                <option value="">{t('forms.options.select_type')}</option>
                                 {ownershipTypes.map((type) => (
                                     <option key={type.id} value={type.id}>{type.name_en}</option>
                                 ))}
@@ -113,14 +114,14 @@ export default function OpportunityForm({ opportunity, areas, landUses, ownershi
                         </div>
 
                         <div>
-                            <InputLabel htmlFor="price_range_id" value="Price Range" />
+                            <InputLabel htmlFor="price_range_id" value={t('forms.fields.price_range')} />
                             <select
                                 id="price_range_id"
                                 value={data.price_range_id}
                                 className="mt-1 block w-full rounded-xl border-stone-200 focus:border-amber-500 focus:ring-amber-500 text-sm"
                                 onChange={(e) => setData('price_range_id', e.target.value)}
                             >
-                                <option value="">Select Range</option>
+                                <option value="">{t('forms.options.select_range')}</option>
                                 {priceRanges.map((range) => (
                                     <option key={range.id} value={range.id}>{range.label_en}</option>
                                 ))}
@@ -131,26 +132,26 @@ export default function OpportunityForm({ opportunity, areas, landUses, ownershi
                 </div>
 
                 <div className="space-y-6 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
-                    <h2 className="text-lg font-semibold text-stone-900">Visibility & Status</h2>
+                    <h2 className="text-lg font-semibold text-stone-900">{t('admin.opportunities.visibility_status')}</h2>
 
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <InputLabel htmlFor="status" value="Status" />
+                            <InputLabel htmlFor="status" value={t('forms.fields.status')} />
                             <select
                                 id="status"
                                 value={data.status}
                                 className="mt-1 block w-full rounded-xl border-stone-200 focus:border-amber-500 focus:ring-amber-500 text-sm"
                                 onChange={(e) => setData('status', e.target.value)}
                             >
-                                <option value="draft">Draft</option>
-                                <option value="published">Published</option>
-                                <option value="archived">Archived</option>
+                                <option value="draft">{t('forms.options.draft')}</option>
+                                <option value="published">{t('forms.options.published')}</option>
+                                <option value="archived">{t('forms.options.archived')}</option>
                             </select>
                             <InputError message={errors.status} className="mt-2" />
                         </div>
 
                         <div>
-                            <InputLabel htmlFor="published_at" value="Publish Date" />
+                            <InputLabel htmlFor="published_at" value={t('forms.fields.publish_date')} />
                             <TextInput
                                 id="published_at"
                                 type="date"
@@ -171,12 +172,12 @@ export default function OpportunityForm({ opportunity, areas, landUses, ownershi
                             onChange={(e) => setData('is_featured', e.target.checked)}
                         />
                         <label htmlFor="is_featured" className="text-sm font-medium text-amber-900">
-                            Feature this opportunity
+                            {t('admin.opportunities.feature_this')}
                         </label>
                     </div>
 
                     <div>
-                        <InputLabel htmlFor="sort_order" value="Sort Order" />
+                        <InputLabel htmlFor="sort_order" value={t('forms.fields.sort_order')} />
                         <TextInput
                             id="sort_order"
                             type="number"
@@ -190,9 +191,9 @@ export default function OpportunityForm({ opportunity, areas, landUses, ownershi
             </div>
 
             <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-6">
-                <h2 className="text-lg font-semibold text-stone-900">Content</h2>
+                <h2 className="text-lg font-semibold text-stone-900">{t('admin.opportunities.content')}</h2>
                 <div>
-                    <InputLabel htmlFor="short_description_en" value="Short Description" />
+                    <InputLabel htmlFor="short_description_en" value={t('forms.fields.short_description')} />
                     <textarea
                         id="short_description_en"
                         value={data.short_description_en}
@@ -205,7 +206,7 @@ export default function OpportunityForm({ opportunity, areas, landUses, ownershi
 
             <div className="flex items-center justify-end gap-4">
                 <PrimaryButton disabled={processing}>
-                    {isEditing ? 'Save Changes' : 'Create Opportunity'}
+                    {isEditing ? t('forms.actions.save_changes') : t('forms.actions.create_opportunity')}
                 </PrimaryButton>
             </div>
         </form>

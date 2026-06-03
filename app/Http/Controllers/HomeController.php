@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\LandOpportunity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Inertia\Inertia;
 
 class HomeController extends Controller
@@ -13,6 +14,8 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $locale = App::currentLocale();
+
         $featuredOpportunities = LandOpportunity::query()
             ->where('status', LandOpportunity::STATUS_PUBLISHED)
             ->where('is_featured', true)
@@ -22,13 +25,21 @@ class HomeController extends Controller
             ->limit(6)
             ->get()
             ->map(fn (LandOpportunity $opportunity) => [
-                'title' => $opportunity->title_en,
+                'title' => $locale === 'ar' ? ($opportunity->title_ar ?: $opportunity->title_en) : $opportunity->title_en,
                 'slug' => $opportunity->slug,
-                'area_name' => $opportunity->area?->name_en,
-                'land_use_name' => $opportunity->landUse?->name_en,
-                'ownership_label' => $opportunity->ownershipType?->name_en,
+                'area_name' => $locale === 'ar'
+                    ? ($opportunity->area?->name_ar ?: $opportunity->area?->name_en)
+                    : $opportunity->area?->name_en,
+                'land_use_name' => $locale === 'ar'
+                    ? ($opportunity->landUse?->name_ar ?: $opportunity->landUse?->name_en)
+                    : $opportunity->landUse?->name_en,
+                'ownership_label' => $locale === 'ar'
+                    ? ($opportunity->ownershipType?->name_ar ?: $opportunity->ownershipType?->name_en)
+                    : $opportunity->ownershipType?->name_en,
                 'ownership_color' => $opportunity->ownershipType?->color,
-                'price_range_label' => $opportunity->priceRange?->label_en,
+                'price_range_label' => $locale === 'ar'
+                    ? ($opportunity->priceRange?->label_ar ?: $opportunity->priceRange?->label_en)
+                    : $opportunity->priceRange?->label_en,
             ]);
 
         return Inertia::render('Home', [

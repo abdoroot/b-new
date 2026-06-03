@@ -1,31 +1,32 @@
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { Edit2, Plus, Trash2 } from 'lucide-react';
+import { t } from '@/lib/translations';
 
 export default function Index({ items }) {
     const { delete: destroy } = useForm();
 
     const handleDelete = (id) => {
-        if (confirm('Are you sure you want to delete this lead purpose?')) {
+        if (confirm(t('admin.references_pages.delete_lead_purpose_confirm'))) {
             destroy(route('admin.references.lead-purposes.destroy', id));
         }
     };
 
     return (
         <AdminLayout>
-            <Head title="Lead Purposes" />
+            <Head title={t('admin.nav.lead_purposes')} />
             
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
                 <div>
-                    <h1 className="text-2xl font-bold text-stone-900">Lead Purposes</h1>
-                    <p className="text-stone-500">Manage purposes for leads.</p>
+                    <h1 className="text-2xl font-bold text-stone-900">{t('admin.nav.lead_purposes')}</h1>
+                    <p className="text-stone-500">{t('admin.references_pages.lead_purposes_description')}</p>
                 </div>
                 <Link
                     href={route('admin.references.lead-purposes.create')}
                     className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-amber-500 text-white rounded-xl font-semibold hover:bg-amber-600 transition"
                 >
                     <Plus size={18} />
-                    Add Lead Purpose
+                    {t('forms.actions.add_lead_purpose')}
                 </Link>
             </div>
 
@@ -34,17 +35,17 @@ export default function Index({ items }) {
                     <table className="w-full text-left">
                         <thead>
                             <tr className="bg-stone-50 border-b border-stone-200">
-                                <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase">Sort</th>
-                                <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase">Label (EN)</th>
-                                <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase">Status</th>
-                                <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase text-right">Actions</th>
+                                <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase">{t('admin.references_pages.sort')}</th>
+                                <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase">{t('forms.fields.label_english')}</th>
+                                <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase">{t('admin.references_pages.status')}</th>
+                                <th className="px-6 py-4 text-xs font-semibold text-stone-500 uppercase text-right">{t('admin.references_pages.actions')}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-stone-100">
                             {items.length === 0 ? (
                                 <tr>
                                     <td colSpan="4" className="px-6 py-12 text-center text-stone-500">
-                                        No lead purposes found.
+                                        {t('admin.references_pages.no_lead_purposes')}
                                     </td>
                                 </tr>
                             ) : (
@@ -59,7 +60,7 @@ export default function Index({ items }) {
                                             <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                                                 item.is_active ? 'bg-green-100 text-green-800' : 'bg-stone-100 text-stone-800'
                                             }`}>
-                                                {item.is_active ? 'Active' : 'Inactive'}
+                                                {item.is_active ? t('admin.references_pages.active') : t('admin.references_pages.inactive')}
                                             </span>
                                         </td>
                                         <td className="px-6 py-4 text-right">

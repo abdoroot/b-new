@@ -5,11 +5,20 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandOpportunityController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 // Public Routes
 Route::get('/', HomeController::class)->name('home');
+
+Route::get('/locale/{locale}', function (Request $request, string $locale) {
+    abort_unless(in_array($locale, ['en', 'ar'], true), 404);
+
+    $request->session()->put('locale', $locale);
+
+    return redirect()->back();
+})->name('locale.switch');
 
 Route::prefix('land-opportunities')->name('land-opportunities.')->group(function () {
     Route::get('/', [LandOpportunityController::class, 'index'])->name('index');

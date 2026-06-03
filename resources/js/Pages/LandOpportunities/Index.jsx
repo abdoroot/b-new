@@ -1,6 +1,7 @@
 import { router, Link } from '@inertiajs/react';
 import FrontLayout from '../../Layouts/FrontLayout';
 import OpportunityCard from '../../Components/LandOpportunity/OpportunityCard';
+import { t } from '../../lib/translations';
 
 const filterClass =
     'w-full rounded-xl border border-stone-200 bg-white px-4 py-3 text-sm text-stone-700 outline-none transition focus:border-amber-700/40 focus:ring-2 focus:ring-amber-700/10';
@@ -42,15 +43,15 @@ export default function LandOpportunitiesIndex({ opportunities = [], filterOptio
                 <section className="bg-[#f5f1e8]">
                     <div className="container-shell py-12 sm:py-16">
                         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
-                            Land Opportunities
+                            {t('public.opportunities.page_eyebrow')}
                         </p>
 
                         <h1 className="mt-4 max-w-4xl text-4xl font-semibold leading-tight tracking-tight text-stone-950 sm:text-5xl">
-                            Curated Sharjah land opportunities.
+                            {t('public.opportunities.page_title')}
                         </h1>
 
                         <p className="mt-5 max-w-2xl text-base leading-8 text-stone-600">
-                            Investment-focused shortlists filtered by area, land use, price range, and buyer eligibility.
+                            {t('public.opportunities.page_description')}
                         </p>
 
                         <div className="mt-8 rounded-3xl border border-stone-200 bg-white p-4 shadow-sm sm:p-5">
@@ -60,9 +61,9 @@ export default function LandOpportunitiesIndex({ opportunities = [], filterOptio
                                     value={filters.area || ''}
                                     onChange={(e) => handleFilterChange('area', e.target.value)}
                                 >
-                                    <option value="">All areas</option>
+                                    <option value="">{t('public.opportunities.filters.all_areas')}</option>
                                     {areas.map(area => (
-                                        <option key={area.id} value={area.slug}>{area.name_en}</option>
+                                        <option key={area.id} value={area.slug}>{area.label}</option>
                                     ))}
                                 </select>
 
@@ -71,9 +72,9 @@ export default function LandOpportunitiesIndex({ opportunities = [], filterOptio
                                     value={filters.land_use || ''}
                                     onChange={(e) => handleFilterChange('land_use', e.target.value)}
                                 >
-                                    <option value="">All land uses</option>
+                                    <option value="">{t('public.opportunities.filters.all_land_uses')}</option>
                                     {land_uses.map(use => (
-                                        <option key={use.id} value={use.slug}>{use.name_en}</option>
+                                        <option key={use.id} value={use.slug}>{use.label}</option>
                                     ))}
                                 </select>
 
@@ -82,9 +83,9 @@ export default function LandOpportunitiesIndex({ opportunities = [], filterOptio
                                     value={filters.price_range || ''}
                                     onChange={(e) => handleFilterChange('price_range', e.target.value)}
                                 >
-                                    <option value="">All price ranges</option>
+                                    <option value="">{t('public.opportunities.filters.all_price_ranges')}</option>
                                     {price_ranges.map(range => (
-                                        <option key={range.id} value={range.slug}>{range.label_en}</option>
+                                        <option key={range.id} value={range.slug}>{range.label}</option>
                                     ))}
                                 </select>
 
@@ -92,11 +93,11 @@ export default function LandOpportunitiesIndex({ opportunities = [], filterOptio
                                     className={filterClass} 
                                     value={filters.ownership_type || ''}
                                     onChange={(e) => handleFilterChange('ownership_type', e.target.value)}
-                                    aria-label="Buyer eligibility"
+                                    aria-label={t('public.opportunities.filters.buyer_eligibility')}
                                 >
-                                    <option value="">All buyer types</option>
+                                    <option value="">{t('public.opportunities.filters.all_buyer_types')}</option>
                                     {ownership_types.map(type => (
-                                        <option key={type.id} value={type.slug}>{type.name_en}</option>
+                                        <option key={type.id} value={type.slug}>{type.label}</option>
                                     ))}
                                 </select>
                             </div>
@@ -107,7 +108,7 @@ export default function LandOpportunitiesIndex({ opportunities = [], filterOptio
                                         onClick={clearFilters}
                                         className="text-sm font-medium text-amber-700 hover:text-amber-800"
                                     >
-                                        Clear filters
+                                        {t('public.opportunities.filters.clear_filters')}
                                     </button>
                                 </div>
                             )}
@@ -127,19 +128,19 @@ export default function LandOpportunitiesIndex({ opportunities = [], filterOptio
                             </div>
                         ) : (
                             <div className="rounded-3xl border border-stone-200 bg-white py-20 text-center">
-                                <p className="text-stone-500">No opportunities match your selected filters.</p>
+                                <p className="text-stone-500">{t('public.opportunities.empty')}</p>
                                 <button 
                                     onClick={clearFilters}
                                     className="mt-4 text-sm font-semibold text-amber-700 hover:underline"
                                 >
-                                    Clear all filters
+                                    {t('public.opportunities.filters.clear_all_filters')}
                                 </button>
                             </div>
                         )}
 
                         <div className="rounded-3xl border border-amber-700/10 bg-white p-6 shadow-sm sm:flex sm:items-center sm:justify-between sm:gap-6">
                             <p className="text-sm leading-7 text-stone-700">
-                                Need details on matching land opportunities? Share your brief and our advisory team will respond.
+                                {t('public.opportunities.cta')}
                             </p>
 
                             <div className="mt-4 sm:mt-0">
@@ -147,7 +148,7 @@ export default function LandOpportunitiesIndex({ opportunities = [], filterOptio
                                     href="/contact"
                                     className="inline-flex items-center gap-2 rounded-xl bg-neutral-950 px-5 py-3 text-sm font-semibold text-amber-100 transition hover:bg-neutral-800"
                                 >
-                                    Request details
+                                    {t('public.opportunities.request_details')}
                                 </Link>
                             </div>
                         </div>

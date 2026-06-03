@@ -1,8 +1,13 @@
 import { Link } from '@inertiajs/react';
-import { ArrowRight, MapPin } from 'lucide-react';
+import { ArrowLeft, ArrowRight, MapPin } from 'lucide-react';
 import FrontLayout from '../../Layouts/FrontLayout';
+import { t, useLocale } from '../../lib/translations';
 
 export default function LandOpportunitiesShow({ opportunity }) {
+    const locale = useLocale();
+    const BackIcon = locale.direction === 'rtl' ? ArrowRight : ArrowLeft;
+    const ForwardIcon = locale.direction === 'rtl' ? ArrowLeft : ArrowRight;
+
     return (
         <FrontLayout>
             <main className="bg-stone-50">
@@ -12,8 +17,8 @@ export default function LandOpportunitiesShow({ opportunity }) {
                             href="/land-opportunities"
                             className="inline-flex items-center gap-2 text-sm font-semibold text-amber-800 hover:text-amber-900"
                         >
-                            <ArrowRight size={16} className="rotate-180" />
-                            Back to opportunities
+                            <BackIcon size={16} />
+                            {t('public.opportunities.back_to_opportunities')}
                         </Link>
 
                         <div className="mt-8 max-w-4xl">
@@ -39,7 +44,7 @@ export default function LandOpportunitiesShow({ opportunity }) {
                             </div>
 
                             <p className="mt-5 max-w-2xl text-base leading-8 text-stone-600">
-                                {opportunity.short_description || 'Curated land opportunity prepared for early assessment, ownership eligibility, and investment positioning.'}
+                                {opportunity.short_description || t('public.opportunities.fallback_description')}
                             </p>
                         </div>
                     </div>
@@ -49,7 +54,7 @@ export default function LandOpportunitiesShow({ opportunity }) {
                     <div className="grid overflow-hidden rounded-[2rem] border border-stone-200 bg-white shadow-sm lg:grid-cols-3">
                         <div className="border-b border-stone-100 p-6 lg:border-b-0 lg:border-r">
                             <p className="text-[11px] font-medium tracking-[0.08em] text-stone-500">
-                                Location
+                                {t('public.opportunities.labels.location')}
                             </p>
                             <p className="mt-2 text-sm font-semibold text-stone-950">
                                 {opportunity.location}
@@ -58,7 +63,7 @@ export default function LandOpportunitiesShow({ opportunity }) {
 
                         <div className="border-b border-stone-100 p-6 lg:border-b-0 lg:border-r">
                             <p className="text-[11px] font-medium tracking-[0.08em] text-stone-500">
-                                Asking range
+                                {t('public.opportunities.labels.asking_range')}
                             </p>
                             <p className="mt-2 text-sm font-semibold text-stone-950">
                                 {opportunity.price_range_label}
@@ -67,7 +72,7 @@ export default function LandOpportunitiesShow({ opportunity }) {
 
                         <div className="p-6">
                             <p className="text-[11px] font-medium tracking-[0.08em] text-stone-500">
-                                Land use
+                                {t('public.opportunities.labels.land_use')}
                             </p>
                             <p className="mt-2 text-sm font-semibold text-stone-950">
                                 {opportunity.land_use_name}
@@ -81,7 +86,7 @@ export default function LandOpportunitiesShow({ opportunity }) {
                         <div className="space-y-8">
                             <div>
                                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
-                                    Investment insight
+                                    {t('public.opportunities.labels.investment_insight')}
                                 </p>
                                 <p className="mt-4 text-lg leading-9 text-stone-700">
                                     {opportunity.investment_insight}
@@ -90,7 +95,7 @@ export default function LandOpportunitiesShow({ opportunity }) {
 
                             <div className="border-t border-stone-200 pt-8">
                                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
-                                    Area growth trigger
+                                    {t('public.opportunities.labels.area_growth_trigger')}
                                 </p>
                                 <p className="mt-4 text-lg leading-9 text-stone-700">
                                     {opportunity.area_growth_trigger}
@@ -100,15 +105,15 @@ export default function LandOpportunitiesShow({ opportunity }) {
 
                         <div className="rounded-[2rem] border border-amber-700/10 bg-white p-6 shadow-sm sm:p-8">
                             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
-                                Interested in this opportunity?
+                                {t('public.opportunities.labels.interested')}
                             </p>
 
                             <h2 className="mt-4 text-2xl font-semibold leading-tight text-stone-950">
-                                Request the full details from our advisory team.
+                                {t('public.opportunities.labels.interested_title')}
                             </h2>
 
                             <p className="mt-4 text-sm leading-7 text-stone-600">
-                                Share your budget and purpose, and we will help you assess this land opportunity or suggest suitable alternatives.
+                                {t('public.opportunities.labels.interested_description')}
                             </p>
 
                             <div className="mt-7">
@@ -116,8 +121,8 @@ export default function LandOpportunitiesShow({ opportunity }) {
                                     href="/contact"
                                     className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-neutral-950 px-5 py-3 text-sm font-semibold text-amber-100 transition hover:bg-neutral-800"
                                 >
-                                    Request details
-                                    <ArrowRight size={16} />
+                                    {t('public.opportunities.request_details')}
+                                    <ForwardIcon size={16} />
                                 </Link>
                             </div>
                         </div>

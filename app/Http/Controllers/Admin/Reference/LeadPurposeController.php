@@ -34,7 +34,7 @@ class LeadPurposeController extends Controller
 
         LeadPurpose::create($validated);
 
-        return redirect()->route('admin.references.lead-purposes.index')->with('success', 'Lead Purpose created successfully.');
+        return redirect()->route('admin.references.lead-purposes.index')->with('success', __('messages.lead_purpose_created'));
     }
 
     public function edit(LeadPurpose $leadPurpose)
@@ -56,17 +56,17 @@ class LeadPurposeController extends Controller
 
         $leadPurpose->update($validated);
 
-        return redirect()->route('admin.references.lead-purposes.index')->with('success', 'Lead Purpose updated successfully.');
+        return redirect()->route('admin.references.lead-purposes.index')->with('success', __('messages.lead_purpose_updated'));
     }
 
     public function destroy(LeadPurpose $leadPurpose)
     {
         if ($leadPurpose->leads()->exists()) {
-            return back()->with('error', 'Cannot delete lead purpose as it is currently linked to leads.');
+            return back()->with('error', __('messages.lead_purpose_delete_blocked'));
         }
 
         $leadPurpose->delete();
 
-        return redirect()->route('admin.references.lead-purposes.index')->with('success', 'Lead Purpose deleted successfully.');
+        return redirect()->route('admin.references.lead-purposes.index')->with('success', __('messages.lead_purpose_deleted'));
     }
 }

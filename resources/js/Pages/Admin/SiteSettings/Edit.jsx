@@ -5,6 +5,7 @@ import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
+import { t } from '@/lib/translations';
 
 export default function Edit({ settings }) {
     const settingsMap = settings.reduce((acc, s) => {
@@ -38,12 +39,12 @@ export default function Edit({ settings }) {
 
     return (
         <AdminLayout>
-            <Head title="Site Settings" />
+            <Head title={t('admin.site_settings.title')} />
             
             <div className="max-w-4xl mx-auto">
                 <div className="mb-8">
-                    <h1 className="text-2xl font-bold text-stone-900">Site Settings</h1>
-                    <p className="text-stone-500">Manage global website configurations and contact information.</p>
+                    <h1 className="text-2xl font-bold text-stone-900">{t('admin.site_settings.title')}</h1>
+                    <p className="text-stone-500">{t('admin.site_settings.description')}</p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-8">
@@ -53,12 +54,12 @@ export default function Edit({ settings }) {
                             <div className="p-2 bg-amber-50 text-amber-600 rounded-lg">
                                 <Building size={20} />
                             </div>
-                            <h2 className="text-lg font-semibold text-stone-900">General Information</h2>
+                            <h2 className="text-lg font-semibold text-stone-900">{t('admin.site_settings.general_information')}</h2>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <InputLabel htmlFor="company_name" value="Company Name" />
+                                <InputLabel htmlFor="company_name" value={t('forms.fields.company_name')} />
                                 <TextInput
                                     id="company_name"
                                     value={data.settings.company_name}
@@ -68,7 +69,7 @@ export default function Edit({ settings }) {
                                 <InputError message={errors['settings.company_name']} />
                             </div>
                             <div className="space-y-2">
-                                <InputLabel htmlFor="site_positioning" value="Site Positioning" />
+                                <InputLabel htmlFor="site_positioning" value={t('forms.fields.site_positioning')} />
                                 <TextInput
                                     id="site_positioning"
                                     value={data.settings.site_positioning}
@@ -86,13 +87,13 @@ export default function Edit({ settings }) {
                             <div className="p-2 bg-amber-50 text-amber-600 rounded-lg">
                                 <Phone size={20} />
                             </div>
-                            <h2 className="text-lg font-semibold text-stone-900">Contact Details</h2>
+                            <h2 className="text-lg font-semibold text-stone-900">{t('admin.site_settings.contact_details')}</h2>
                         </div>
 
                         <div className="space-y-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
-                                    <InputLabel htmlFor="contact_email" value="Contact Email" />
+                                    <InputLabel htmlFor="contact_email" value={t('forms.fields.contact_email')} />
                                     <TextInput
                                         id="contact_email"
                                         type="email"
@@ -103,7 +104,7 @@ export default function Edit({ settings }) {
                                     <InputError message={errors['settings.contact_email']} />
                                 </div>
                                 <div className="space-y-2">
-                                    <InputLabel htmlFor="contact_phone" value="Contact Phone" />
+                                    <InputLabel htmlFor="contact_phone" value={t('forms.fields.contact_phone')} />
                                     <TextInput
                                         id="contact_phone"
                                         value={data.settings.contact_phone}
@@ -115,7 +116,7 @@ export default function Edit({ settings }) {
                             </div>
 
                             <div className="space-y-2">
-                                <InputLabel htmlFor="contact_address" value="Contact Address" />
+                                <InputLabel htmlFor="contact_address" value={t('forms.fields.contact_address')} />
                                 <textarea
                                     id="contact_address"
                                     value={data.settings.contact_address}
@@ -130,28 +131,28 @@ export default function Edit({ settings }) {
                                 <div className="space-y-2">
                                     <div className="flex items-center gap-2 mb-1">
                                         <MessageCircle size={16} className="text-green-600" />
-                                        <InputLabel htmlFor="contact_whatsapp" value="WhatsApp Number" />
+                                        <InputLabel htmlFor="contact_whatsapp" value={t('forms.fields.whatsapp_number')} />
                                     </div>
                                     <TextInput
                                         id="contact_whatsapp"
                                         value={data.settings.contact_whatsapp}
                                         onChange={(e) => handleSettingChange('contact_whatsapp', e.target.value)}
                                         className="w-full"
-                                        placeholder="e.g. 971XXXXXXXXX"
+                                        placeholder={t('admin.site_settings.whatsapp_number_placeholder')}
                                     />
                                     <InputError message={errors['settings.contact_whatsapp']} />
                                 </div>
                                 <div className="space-y-2">
                                     <div className="flex items-center gap-2 mb-1">
                                         <Globe size={16} className="text-blue-600" />
-                                        <InputLabel htmlFor="contact_whatsapp_url" value="WhatsApp URL" />
+                                        <InputLabel htmlFor="contact_whatsapp_url" value={t('forms.fields.whatsapp_url')} />
                                     </div>
                                     <TextInput
                                         id="contact_whatsapp_url"
                                         value={data.settings.contact_whatsapp_url}
                                         onChange={(e) => handleSettingChange('contact_whatsapp_url', e.target.value)}
                                         className="w-full"
-                                        placeholder="https://wa.me/..."
+                                        placeholder={t('admin.site_settings.whatsapp_url_placeholder')}
                                     />
                                     <InputError message={errors['settings.contact_whatsapp_url']} />
                                 </div>
@@ -165,7 +166,7 @@ export default function Edit({ settings }) {
                             disabled={processing}
                         >
                             <Save size={18} />
-                            Save Settings
+                            {t('forms.actions.save_settings')}
                         </PrimaryButton>
                     </div>
                 </form>

@@ -35,7 +35,7 @@ class OwnershipTypeController extends Controller
 
         OwnershipType::create($validated);
 
-        return redirect()->route('admin.references.ownership-types.index')->with('success', 'Ownership Type created successfully.');
+        return redirect()->route('admin.references.ownership-types.index')->with('success', __('messages.ownership_type_created'));
     }
 
     public function edit(OwnershipType $ownershipType)
@@ -58,17 +58,17 @@ class OwnershipTypeController extends Controller
 
         $ownershipType->update($validated);
 
-        return redirect()->route('admin.references.ownership-types.index')->with('success', 'Ownership Type updated successfully.');
+        return redirect()->route('admin.references.ownership-types.index')->with('success', __('messages.ownership_type_updated'));
     }
 
     public function destroy(OwnershipType $ownershipType)
     {
         if ($ownershipType->landOpportunities()->exists()) {
-            return back()->with('error', 'Cannot delete ownership type as it is currently linked to land opportunities.');
+            return back()->with('error', __('messages.ownership_type_delete_blocked'));
         }
 
         $ownershipType->delete();
 
-        return redirect()->route('admin.references.ownership-types.index')->with('success', 'Ownership Type deleted successfully.');
+        return redirect()->route('admin.references.ownership-types.index')->with('success', __('messages.ownership_type_deleted'));
     }
 }

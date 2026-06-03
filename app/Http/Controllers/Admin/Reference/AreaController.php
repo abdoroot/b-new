@@ -43,7 +43,7 @@ class AreaController extends Controller
 
         Area::create($validated);
 
-        return redirect()->route('admin.references.areas.index')->with('success', 'Area created successfully.');
+        return redirect()->route('admin.references.areas.index')->with('success', __('messages.area_created'));
     }
 
     public function edit(Area $area)
@@ -68,17 +68,17 @@ class AreaController extends Controller
 
         $area->update($validated);
 
-        return redirect()->route('admin.references.areas.index')->with('success', 'Area updated successfully.');
+        return redirect()->route('admin.references.areas.index')->with('success', __('messages.area_updated'));
     }
 
     public function destroy(Area $area)
     {
         if ($area->landOpportunities()->exists() || $area->leads()->exists()) {
-            return back()->with('error', 'Cannot delete area as it is currently linked to land opportunities or leads.');
+            return back()->with('error', __('messages.area_delete_blocked'));
         }
 
         $area->delete();
 
-        return redirect()->route('admin.references.areas.index')->with('success', 'Area deleted successfully.');
+        return redirect()->route('admin.references.areas.index')->with('success', __('messages.area_deleted'));
     }
 }

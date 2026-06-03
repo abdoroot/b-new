@@ -25,7 +25,7 @@ class LeadController extends Controller
 
         return Inertia::render('Admin/Leads/Show', [
             'lead' => $lead,
-            'statuses' => Lead::statuses(),
+            'statuses' => array_keys(Lead::statuses()),
         ]);
     }
 
@@ -39,13 +39,13 @@ class LeadController extends Controller
             'status' => $validated['status'],
         ]);
 
-        return back()->with('success', 'Lead status updated successfully.');
+        return back()->with('success', __('messages.lead_status_updated'));
     }
 
     public function destroy(Lead $lead)
     {
         $lead->delete();
 
-        return redirect()->route('admin.leads.index')->with('success', 'Lead deleted successfully.');
+        return redirect()->route('admin.leads.index')->with('success', __('messages.lead_deleted'));
     }
 }

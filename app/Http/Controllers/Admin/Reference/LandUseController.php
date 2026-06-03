@@ -34,7 +34,7 @@ class LandUseController extends Controller
 
         LandUse::create($validated);
 
-        return redirect()->route('admin.references.land-uses.index')->with('success', 'Land Use created successfully.');
+        return redirect()->route('admin.references.land-uses.index')->with('success', __('messages.land_use_created'));
     }
 
     public function edit(LandUse $landUse)
@@ -56,17 +56,17 @@ class LandUseController extends Controller
 
         $landUse->update($validated);
 
-        return redirect()->route('admin.references.land-uses.index')->with('success', 'Land Use updated successfully.');
+        return redirect()->route('admin.references.land-uses.index')->with('success', __('messages.land_use_updated'));
     }
 
     public function destroy(LandUse $landUse)
     {
         if ($landUse->landOpportunities()->exists() || $landUse->defaultAreas()->exists()) {
-            return back()->with('error', 'Cannot delete land use as it is currently linked to land opportunities or areas.');
+            return back()->with('error', __('messages.land_use_delete_blocked'));
         }
 
         $landUse->delete();
 
-        return redirect()->route('admin.references.land-uses.index')->with('success', 'Land Use deleted successfully.');
+        return redirect()->route('admin.references.land-uses.index')->with('success', __('messages.land_use_deleted'));
     }
 }

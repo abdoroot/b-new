@@ -1,14 +1,16 @@
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { ArrowLeft, Save } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Save } from 'lucide-react';
 import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import InputError from '@/Components/InputError';
 import Checkbox from '@/Components/Checkbox';
 import PrimaryButton from '@/Components/PrimaryButton';
+import { t, useLocale } from '@/lib/translations';
 
 export default function Form({ item }) {
     const isEditing = !!item;
+    const locale = useLocale();
     
     const { data, setData, post, patch, processing, errors } = useForm({
         label_en: item?.label_en || '',
@@ -32,7 +34,7 @@ export default function Form({ item }) {
 
     return (
         <AdminLayout>
-            <Head title={isEditing ? `Edit Price Range: ${item.label_en}` : 'Create Price Range'} />
+            <Head title={isEditing ? t('admin.references_pages.edit_price_range') : t('admin.references_pages.create_price_range')} />
             
             <div className="max-w-3xl mx-auto">
                 <div className="flex items-center gap-4 mb-8">
@@ -40,14 +42,14 @@ export default function Form({ item }) {
                         href={route('admin.references.price-ranges.index')}
                         className="p-2 bg-white border border-stone-200 text-stone-500 rounded-xl hover:text-stone-900 transition shadow-sm"
                     >
-                        <ArrowLeft size={20} />
+                        {locale.direction === 'rtl' ? <ArrowRight size={20} /> : <ArrowLeft size={20} />}
                     </Link>
                     <div>
                         <h1 className="text-2xl font-bold text-stone-900">
-                            {isEditing ? 'Edit Price Range' : 'Create Price Range'}
+                            {isEditing ? t('admin.references_pages.edit_price_range') : t('admin.references_pages.create_price_range')}
                         </h1>
                         <p className="text-stone-500">
-                            {isEditing ? `Updating ${item.label_en}` : 'Add a new price range.'}
+                            {isEditing ? t('admin.references_pages.updating', { name: item.label_en }) : t('admin.references_pages.add_new_price_range')}
                         </p>
                     </div>
                 </div>
@@ -56,7 +58,7 @@ export default function Form({ item }) {
                     <div className="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <InputLabel htmlFor="label_en" value="Label (EN)" />
+                                <InputLabel htmlFor="label_en" value={t('forms.fields.label_english')} />
                                 <TextInput
                                     id="label_en"
                                     value={data.label_en}
@@ -67,7 +69,7 @@ export default function Form({ item }) {
                                 <InputError message={errors.label_en} />
                             </div>
                             <div className="space-y-2">
-                                <InputLabel htmlFor="label_ar" value="Label (AR)" />
+                                <InputLabel htmlFor="label_ar" value={t('forms.fields.label_arabic')} />
                                 <TextInput
                                     id="label_ar"
                                     value={data.label_ar}
@@ -81,7 +83,7 @@ export default function Form({ item }) {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <InputLabel htmlFor="slug" value="Slug" />
+                                <InputLabel htmlFor="slug" value={t('forms.fields.slug')} />
                                 <TextInput
                                     id="slug"
                                     value={data.slug}
@@ -92,7 +94,7 @@ export default function Form({ item }) {
                                 <InputError message={errors.slug} />
                             </div>
                             <div className="space-y-2">
-                                <InputLabel htmlFor="currency" value="Currency" />
+                                <InputLabel htmlFor="currency" value={t('forms.fields.currency')} />
                                 <TextInput
                                     id="currency"
                                     value={data.currency}
@@ -106,7 +108,7 @@ export default function Form({ item }) {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <InputLabel htmlFor="min_amount" value="Min Amount" />
+                                <InputLabel htmlFor="min_amount" value={t('forms.fields.min_amount')} />
                                 <TextInput
                                     id="min_amount"
                                     type="number"
@@ -117,7 +119,7 @@ export default function Form({ item }) {
                                 <InputError message={errors.min_amount} />
                             </div>
                             <div className="space-y-2">
-                                <InputLabel htmlFor="max_amount" value="Max Amount" />
+                                <InputLabel htmlFor="max_amount" value={t('forms.fields.max_amount')} />
                                 <TextInput
                                     id="max_amount"
                                     type="number"
@@ -131,7 +133,7 @@ export default function Form({ item }) {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <InputLabel htmlFor="sort_order" value="Sort Order" />
+                                <InputLabel htmlFor="sort_order" value={t('forms.fields.sort_order')} />
                                 <TextInput
                                     id="sort_order"
                                     type="number"
@@ -149,7 +151,7 @@ export default function Form({ item }) {
                                 checked={data.is_active}
                                 onChange={(e) => setData('is_active', e.target.checked)}
                             />
-                            <InputLabel htmlFor="is_active" value="Active" />
+                            <InputLabel htmlFor="is_active" value={t('admin.references_pages.active')} />
                             <InputError message={errors.is_active} />
                         </div>
                     </div>
@@ -159,14 +161,14 @@ export default function Form({ item }) {
                             href={route('admin.references.price-ranges.index')}
                             className="text-sm font-medium text-stone-600 hover:text-stone-900 transition"
                         >
-                            Cancel
+                            {t('forms.actions.cancel')}
                         </Link>
                         <PrimaryButton
                             className="flex items-center gap-2"
                             disabled={processing}
                         >
                             <Save size={18} />
-                            {isEditing ? 'Update Price Range' : 'Save Price Range'}
+                            {isEditing ? t('forms.actions.update_price_range') : t('forms.actions.save_price_range')}
                         </PrimaryButton>
                     </div>
                 </form>

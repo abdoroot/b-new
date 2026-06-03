@@ -71,7 +71,7 @@ class LandOpportunityController extends Controller
         LandOpportunity::create($validated);
 
         return redirect()->route('admin.opportunities.index')
-            ->with('success', 'Opportunity created successfully.');
+            ->with('success', __('messages.opportunity_created'));
     }
 
     public function edit(LandOpportunity $opportunity)
@@ -104,7 +104,7 @@ class LandOpportunityController extends Controller
         $opportunity->update($validated);
 
         return redirect()->route('admin.opportunities.index')
-            ->with('success', 'Opportunity updated successfully.');
+            ->with('success', __('messages.opportunity_updated'));
     }
 
     public function destroy(LandOpportunity $opportunity)
@@ -112,7 +112,7 @@ class LandOpportunityController extends Controller
         $opportunity->delete();
 
         return redirect()->route('admin.opportunities.index')
-            ->with('success', 'Opportunity deleted successfully.');
+            ->with('success', __('messages.opportunity_deleted'));
     }
 
     protected function getFormData()
